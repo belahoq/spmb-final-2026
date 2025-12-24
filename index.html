@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran SPMB 2026/2027 - SD Negeri 3 Pringgabaya</title> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #eef2f7; color: #333; padding-top: 20px; }
+    .main-card { background: #fff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: none; overflow: hidden; margin-bottom: 50px; }
+    
+    .header-gradient { 
+      background: linear-gradient(135deg, #0d6efd 0%, #0a46a1 100%); 
+      color: white; 
+      padding: 30px 20px; 
+      text-align: center; 
+    }
+    
+    .header-logo {
+      width: 80px;      
+      height: 80px;
+      object-fit: contain;
+      background-color: #ffffff; 
+      border-radius: 50%;       
+      padding: 5px;             
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    }
+
+    .section-header { background: #f8f9fa; padding: 10px 20px; border-radius: 8px; margin: 30px 0 20px 0; font-weight: 700; color: #0d6efd; border-left: 5px solid #0d6efd; }
+    .form-label { font-weight: 500; font-size: 0.9rem; color: #555; }
+    .form-control, .form-select { border-radius: 10px; padding: 10px 15px; border: 1px solid #dee2e6; }
+    .btn-submit { background: #0d6efd; border: none; padding: 15px; border-radius: 12px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 20px; color: white; }
+    .btn-submit:hover { background: #0a46a1; transform: translateY(-2px); }
+    .hidden-section { display: none; }
+    .sub-label { font-weight: 700; color: #666; font-size: 0.8rem; margin-top: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+    
+    .ad-slot { text-align: center; margin: 15px auto; min-height: 90px; overflow: hidden; }
+    #ad-bottom { display: none; margin-top: 20px; }
+    
+    .success-box { border: 2px dashed #198754; background-color: #f8fffb; border-radius: 10px; padding: 20px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="ad-slot">
+    <ins style="width: 0px;height:0px" data-width="0" data-height="0" class="l6625041f0f" data-domain="//data527.click" data-affquery="/9c71be28fe2c66a379b0/6625041f0f/?placementName=bawah_kirim"><script src="//data527.click/js/responsive.js" async></script></ins>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card main-card">
+        
+        <div class="header-gradient d-flex flex-column flex-md-row align-items-center justify-content-center gap-3">
+          
+          <img src="logo-kiri.png" alt="Logo Dinas" class="header-logo" onerror="this.style.display='none'"> 
+          
+          <div class="text-center mx-md-3">
+            <h2 class="fw-bold mb-1">SPMB 2026/ 2027</h2>
+            <p class="mb-0 opacity-75">SD NEGERI 3 PRINGGABAYA</p>
+          </div>
+
+          <img src="logo-kanan.png" alt="Logo Sekolah" class="header-logo" onerror="this.style.display='none'">
+          
+        </div>
+        
+        <div class="card-body p-4 p-md-5">
+          <form id="spmbForm">
+            <div class="section-header text-uppercase">A. Identitas Calon Peserta Didik</div>
+            <div class="row g-3">
+              <div class="col-md-12">
+                <label class="form-label">Nama Lengkap (Sesuai Akta)*</label>
+                <input type="text" name="nama" class="form-control" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Jenis Kelamin*</label>
+                <select name="jk" class="form-select" required>
+                  <option value="">Pilih...</option>
+                  <option value="Laki-laki">Laki-laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Agama*</label>
+                <select name="agama" class="form-select" required>
+                  <option value="">Pilih...</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Kristen">Kristen</option>
+                  <option value="Katholik">Katholik</option>
+                  <option value="Hindu">Hindu</option>
+                  <option value="Budha">Budha</option>
+                  <option value="Lainnya">Lainnya</option>
+                </select>
+              </div>
+              <div class="col-md-6"><label class="form-label">Nomor KK (16 Digit)*</label><input type="number" name="no_kk" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label">NIK (16 Digit)*</label><input type="number" name="nik" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label">Tempat Lahir*</label><input type="text" name="tempat_lahir" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label">Tanggal Lahir*</label><input type="date" name="tgl_lahir" class="form-control" required></div>
+              <div class="col-md-12"><label class="form-label">Alamat Lengkap Rumah*</label><textarea name="alamat" class="form-control" rows="2" required></textarea></div>
+              <div class="col-md-6"><label class="form-label">No. Telp / HP (WhatsApp)*</label><input type="tel" name="no_hp" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label">Penerima KPS/KIP/PIP?*</label><select name="penerima_kip" class="form-select" required><option value="">Pilih...</option><option value="Tidak">Tidak</option><option value="Ya">Ya</option></select></div>
+            </div>
+
+            <div class="section-header text-uppercase">B. Data Orang Tua / Wali</div>
+            <div class="row g-3 mb-4">
+              <div class="col-md-12">
+                <label class="form-label text-primary fw-bold">Status Tinggal Bersama*</label>
+                <select name="tinggal_bersama" id="tinggal_bersama" class="form-select" style="background-color: #f0f7ff;" required>
+                  <option value="">-- Pilih Status --</option>
+                  <option value="Bersama Orang Tua">Bersama Orang Tua</option>
+                  <option value="Bersama Wali">Bersama Wali</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="section_ortu" class="hidden-section">
+              <div class="sub-label text-uppercase">Identitas Ayah</div>
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label">Nama Ayah</label><input type="text" name="nama_ayah" class="form-control"></div>
+                <div class="col-md-3"><label class="form-label">Tahun Lahir</label><input type="number" name="tahun_ayah" class="form-control"></div>
+                <div class="col-md-3"><label class="form-label">Pendidikan</label><select name="pdk_ayah" class="form-select"><option value="">Pilih...</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="S1/S2/S3">S1/S2/S3</option><option value="Tidak Tamat SD">Tidak Tamat SD</option><option value="Tidak Bersekolah">Tidak Bersekolah</option></select></div>
+                <div class="col-md-6"><label class="form-label">Pekerjaan Ayah</label><input type="text" name="kerja_ayah" class="form-control"></div>
+                <div class="col-md-6"><label class="form-label">Penghasilan Ayah</label><input type="text" name="hasil_ayah" class="form-control"></div>
+              </div>
+              <div class="sub-label text-uppercase mt-4">Identitas Ibu</div>
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label">Nama Ibu*</label><input type="text" name="nama_ibu" id="nama_ibu" class="form-control"></div>
+                <div class="col-md-3"><label class="form-label">Tahun Lahir</label><input type="number" name="tahun_ibu" class="form-control"></div>
+                <div class="col-md-3"><label class="form-label">Pendidikan</label><select name="pdk_ibu" class="form-select"><option value="">Pilih...</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="S1/S2/S3">S1/S2/S3</option><option value="Tidak Tamat SD">Tidak Tamat SD</option><option value="Tidak Bersekolah">Tidak Bersekolah</option></select></div>
+                <div class="col-md-6"><label class="form-label">Pekerjaan Ibu</label><input type="text" name="kerja_ibu" class="form-control"></div>
+                <div class="col-md-6"><label class="form-label">Penghasilan Ibu</label><input type="text" name="hasil_ibu" class="form-control"></div>
+              </div>
+            </div>
+
+            <div id="section_wali" class="hidden-section">
+              <div class="sub-label text-uppercase">Identitas Wali</div>
+              <div class="row g-3">
+                <div class="col-md-6"><label class="form-label">Nama Wali</label><input type="text" name="nama_wali" class="form-control"></div>
+                <div class="col-md-3"><label class="form-label">Tahun Lahir</label><input type="number" name="tahun_wali" class="form-control"></div>
+                <div class="col-md-3"><label class="form-label">Pendidikan</label><select name="pdk_wali" class="form-select"><option value="">Pilih...</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="S1/S2/S3">S1/S2/S3</option><option value="Tidak Tamat SD">Tidak Tamat SD</option><option value="Tidak Bersekolah">Tidak Bersekolah</option></select></div>
+                <div class="col-md-6"><label class="form-label">Pekerjaan Wali</label><input type="text" name="kerja_wali" class="form-control"></div>
+                <div class="col-md-6"><label class="form-label">Penghasilan Wali</label><input type="text" name="hasil_wali" class="form-control"></div>
+              </div>
+              <div class="sub-label text-uppercase mt-4">Data Orang Tua Kandung (Wajib Isi)</div>
+              <div class="row g-3">
+                <div class="col-md-8"><label class="form-label">Nama Ibu Kandung*</label><input type="text" name="ibu_kandung_wali" id="ibu_kandung_wali" class="form-control" placeholder="Nama lengkap ibu kandung"></div>
+                <div class="col-md-4"><label class="form-label">Tahun Lahir Ibu</label><input type="number" name="tahun_ibu_wali" class="form-control"></div>
+              </div>
+            </div>
+
+            <div class="section-header text-uppercase">C. Data Periodik</div>
+            <div class="row g-3">
+              <div class="col-md-3"><label class="form-label">TB (cm)</label><input type="number" name="tinggi" class="form-control"></div>
+              <div class="col-md-3"><label class="form-label">BB (kg)</label><input type="number" name="berat" class="form-control"></div>
+              <div class="col-md-3"><label class="form-label">Anak Ke-</label><input type="number" name="anak_ke" class="form-control"></div>
+              <div class="col-md-3"><label class="form-label">Jumlah Saudara</label><input type="number" name="saudara" class="form-control"></div>
+              <div class="col-md-12"><label class="form-label">Asal Sekolah (TK/PAUD)</label><input type="text" name="asal_sekolah" class="form-control"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">Kirim Pendaftaran</button>
+            
+            <div id="loader" class="text-center mt-3 d-none">
+              <div class="spinner-border text-primary" role="status"></div>
+              <p>Sedang mengirim data ke database sekolah...</p>
+            </div>
+
+            <div id="ad-bottom" class="ad-slot">
+              <ins style="width: 320px;height:50px" data-width="320" data-height="50" class="s8bade99a96" data-domain="//data527.click" data-affquery="/66b3227b0aa764a51336/8bade99a96/?placementName=bawah_kirim"><script src="//data527.click/js/responsive.js" async></script></ins>
+            </div>
+            
+            <div id="success-actions" class="mt-4 d-none text-center">
+              <div class="success-box mb-3">
+                <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
+                <h5 class="fw-bold text-success mt-2">Pendaftaran Berhasil!</h5>
+                <p class="small mb-0">Data siswa telah tersimpan. Silakan lihat iklan di atas atau klik tombol di bawah untuk mendaftarkan siswa lain.</p>
+              </div>
+              
+              <button type="button" class="btn btn-outline-primary w-100 py-3 fw-bold" id="btnReload">
+                Isi Formulir Baru (Daftar Lagi)
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // WAJIB DIGANTI JIKA LINK INI SUDAH KADALUARSA ATAU BUKAN MILIK ANDA
+  // Pastikan ini adalah link Deploy Web App dari Google Apps Script Sheet Anda
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbz2or3CclYax3AzbqCDknzaRa--0RlcS0ru1Z-ayaq2nAgOpClVeOHBguiPriQ6jrzsmg/exec';
+
+  const selectTinggal = document.getElementById('tinggal_bersama');
+  const sectionOrtu = document.getElementById('section_ortu');
+  const sectionWali = document.getElementById('section_wali');
+  
+  const inputNamaIbu = document.getElementById('nama_ibu');         
+  const inputIbuKandung = document.getElementById('ibu_kandung_wali'); 
+
+  selectTinggal.addEventListener('change', function() {
+    if (this.value === 'Bersama Orang Tua') {
+      sectionOrtu.style.display = 'block';
+      sectionWali.style.display = 'none';
+      inputNamaIbu.required = true;       
+      inputIbuKandung.required = false;   
+      
+    } else if (this.value === 'Bersama Wali') {
+      sectionOrtu.style.display = 'none';
+      sectionWali.style.display = 'block';
+      inputNamaIbu.required = false;      
+      inputIbuKandung.required = true;    
+      
+    } else {
+      sectionOrtu.style.display = 'none';
+      sectionWali.style.display = 'none';
+      inputNamaIbu.required = false;
+      inputIbuKandung.required = false;
+    }
+  });
+
+  const form = document.getElementById('spmbForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+      form.reportValidity(); 
+      return; 
+    }
+    
+    document.getElementById('ad-bottom').style.display = 'block';
+    document.getElementById('submitBtn').classList.add('d-none');
+    document.getElementById('loader').classList.remove('d-none');
+
+    fetch(scriptURL, { 
+      method: 'POST', 
+      body: new FormData(form)
+    })
+    .then(response => {
+      document.getElementById('loader').classList.add('d-none');
+      document.getElementById('success-actions').classList.remove('d-none');
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    })
+    .catch(error => {
+      console.error('Error!', error.message);
+      alert("Maaf, terjadi kesalahan teknis. Silakan coba lagi.");
+      document.getElementById('submitBtn').classList.remove('d-none');
+      document.getElementById('loader').classList.add('d-none');
+    });
+  });
+
+  document.getElementById('btnReload').addEventListener('click', function() {
+    location.reload(); 
+  });
+</script>
+</body>
+</html>
