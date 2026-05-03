@@ -10,26 +10,8 @@
   <style>
     body { font-family: 'Inter', sans-serif; background: #9b9b9c; color: #333; padding-top: 20px; }
     .main-card { background: #fff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: none; overflow: hidden; margin-bottom: 50px; }
-    
-    /* UPDATE HEADER AGAR GAMBAR TIDAK SAMAR */
-    .header-gradient { 
-      background: linear-gradient(135deg, #0d6efd 0%, #0a46a1 100%); 
-      color: white; 
-      padding: 30px 20px; 
-      text-align: center; 
-    }
-    
-    /* STYLE KHUSUS LOGO */
-    .header-logo {
-      width: 80px;      
-      height: 80px;
-      object-fit: contain;
-      background-color: #ffffff; 
-      border-radius: 50%;        
-      padding: 5px;              
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
-    }
-
+    .header-gradient { background: linear-gradient(135deg, #0d6efd 0%, #0a46a1 100%); color: white; padding: 30px 20px; text-align: center; }
+    .header-logo { width: 80px; height: 80px; object-fit: contain; background-color: #ffffff; border-radius: 50%; padding: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
     .section-header { background: #f8f9fa; padding: 10px 20px; border-radius: 8px; margin: 30px 0 20px 0; font-weight: 700; color: #0d6efd; border-left: 5px solid #0d6efd; }
     .form-label { font-weight: 500; font-size: 0.9rem; color: #555; }
     .form-control, .form-select { border-radius: 10px; padding: 10px 15px; border: 1px solid #dee2e6; }
@@ -37,9 +19,8 @@
     .btn-submit:hover { background: #0a46a1; transform: translateY(-2px); }
     .hidden-section { display: none; }
     .sub-label { font-weight: 700; color: #666; font-size: 0.8rem; margin-top: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-    
-    /* STYLE PESAN SUKSES */
     .success-box { border: 2px dashed #198754; background-color: #f8fffb; border-radius: 10px; padding: 20px; }
+    .upload-note { font-size: 0.75rem; color: #dc3545; }
   </style>
 </head>
 <body>
@@ -50,46 +31,21 @@
       <div class="card main-card">
         
         <div class="header-gradient d-flex flex-column flex-md-row align-items-center justify-content-center gap-3">
-          
           <img src="logo-kiri.png" alt="Logo Dinas" class="header-logo" onerror="this.style.display='none'"> 
-          
           <div class="text-center mx-md-3">
             <h2 class="fw-bold mb-1">SPMB 2026/ 2027</h2>
             <p class="mb-0 opacity-75">SD NEGERI 3 PRINGGABAYA</p>
           </div>
-
           <img src="logo-kanan.png" alt="Logo Sekolah" class="header-logo" onerror="this.style.display='none'">
-          
         </div>
         
         <div class="card-body p-4 p-md-5">
           <form id="spmbForm">
             <div class="section-header text-uppercase">A. Identitas Calon Peserta Didik</div>
             <div class="row g-3">
-              <div class="col-md-12">
-                <label class="form-label">Nama Lengkap (Sesuai Akta)*</label>
-                <input type="text" name="nama" class="form-control" required>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Jenis Kelamin*</label>
-                <select name="jk" class="form-select" required>
-                  <option value="">Pilih...</option>
-                  <option value="Laki-laki">Laki-laki</option>
-                  <option value="Perempuan">Perempuan</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Agama*</label>
-                <select name="agama" class="form-select" required>
-                  <option value="">Pilih...</option>
-                  <option value="Islam">Islam</option>
-                  <option value="Kristen">Kristen</option>
-                  <option value="Katholik">Katholik</option>
-                  <option value="Hindu">Hindu</option>
-                  <option value="Budha">Budha</option>
-                  <option value="Lainnya">Lainnya</option>
-                </select>
-              </div>
+              <div class="col-md-12"><label class="form-label">Nama Lengkap (Sesuai Akta)*</label><input type="text" name="nama" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label">Jenis Kelamin*</label><select name="jk" class="form-select" required><option value="">Pilih...</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
+              <div class="col-md-6"><label class="form-label">Agama*</label><select name="agama" class="form-select" required><option value="">Pilih...</option><option value="Islam">Islam</option><option value="Kristen">Kristen</option><option value="Katholik">Katholik</option><option value="Hindu">Hindu</option><option value="Budha">Budha</option><option value="Lainnya">Lainnya</option></select></div>
               <div class="col-md-6"><label class="form-label">Nomor KK (16 Digit)*</label><input type="number" name="no_kk" class="form-control" required></div>
               <div class="col-md-6"><label class="form-label">NIK (16 Digit)*</label><input type="number" name="nik" class="form-control" required></div>
               <div class="col-md-6"><label class="form-label">Tempat Lahir*</label><input type="text" name="tempat_lahir" class="form-control" required></div>
@@ -155,23 +111,34 @@
               <div class="col-md-12"><label class="form-label">Asal Sekolah (TK/PAUD)</label><input type="text" name="asal_sekolah" class="form-control"></div>
             </div>
 
+            <div class="section-header text-uppercase">D. Upload Berkas (Wajib)</div>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label class="form-label">Pas Foto Calon Siswa*</label>
+                <input type="file" id="fileFoto" class="form-control" accept="image/jpeg, image/png" required>
+                <div class="upload-note mt-1">Format: JPG/PNG. Maksimal 2MB.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Scan Kartu Keluarga (KK)*</label>
+                <input type="file" id="fileKk" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
+                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
+              </div>
+            </div>
+
             <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">Kirim Pendaftaran</button>
             
             <div id="loader" class="text-center mt-3 d-none">
               <div class="spinner-border text-primary" role="status"></div>
-              <p>Sedang mengirim data ke database sekolah...</p>
+              <p class="mt-2 fw-bold text-primary">Sedang mengupload berkas dan menyimpan data... Mohon tunggu (Jangan tutup halaman).</p>
             </div>
             
             <div id="success-actions" class="mt-4 d-none text-center">
               <div class="success-box mb-3">
                 <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
                 <h5 class="fw-bold text-success mt-2">Pendaftaran Berhasil!</h5>
-                <p class="small mb-0">Data siswa telah tersimpan. Silakan klik tombol di bawah untuk mendaftarkan siswa lain.</p>
+                <p class="small mb-0">Data siswa dan berkas telah tersimpan di sistem.</p>
               </div>
-              
-              <button type="button" class="btn btn-outline-primary w-100 py-3 fw-bold" id="btnReload">
-                Isi Formulir Baru
-              </button>
+              <button type="button" class="btn btn-outline-primary w-100 py-3 fw-bold" id="btnReload">Isi Formulir Baru</button>
             </div>
 
           </form>
@@ -182,40 +149,43 @@
 </div>
 
 <script>
-  // WAJIB DIGANTI JIKA LINK INI SUDAH KADALUARSA ATAU BUKAN MILIK ANDA
-  // Pastikan ini adalah link Deploy Web App dari Google Apps Script Sheet Anda
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbz2or3CclYax3AzbqCDknzaRa--0RlcS0ru1Z-ayaq2nAgOpClVeOHBguiPriQ6jrzsmg/exec';
+  // PASTIIN URL INI UDAH DI-UPDATE DENGAN DEPLOYMENT BARU
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbz5ZMATeyqRHE_BgLo1Ylp9ko19CYEWAdpW94nIjkBWFZ_HU0jw8n1l31zu6rm7aS5oCQ/exec';
 
   const selectTinggal = document.getElementById('tinggal_bersama');
   const sectionOrtu = document.getElementById('section_ortu');
   const sectionWali = document.getElementById('section_wali');
-  
   const inputNamaIbu = document.getElementById('nama_ibu');         
   const inputIbuKandung = document.getElementById('ibu_kandung_wali'); 
 
   selectTinggal.addEventListener('change', function() {
     if (this.value === 'Bersama Orang Tua') {
-      sectionOrtu.style.display = 'block';
-      sectionWali.style.display = 'none';
-      inputNamaIbu.required = true;       
-      inputIbuKandung.required = false;   
-      
+      sectionOrtu.style.display = 'block'; sectionWali.style.display = 'none';
+      inputNamaIbu.required = true; inputIbuKandung.required = false;   
     } else if (this.value === 'Bersama Wali') {
-      sectionOrtu.style.display = 'none';
-      sectionWali.style.display = 'block';
-      inputNamaIbu.required = false;      
-      inputIbuKandung.required = true;    
-      
+      sectionOrtu.style.display = 'none'; sectionWali.style.display = 'block';
+      inputNamaIbu.required = false; inputIbuKandung.required = true;    
     } else {
-      sectionOrtu.style.display = 'none';
-      sectionWali.style.display = 'none';
-      inputNamaIbu.required = false;
-      inputIbuKandung.required = false;
+      sectionOrtu.style.display = 'none'; sectionWali.style.display = 'none';
+      inputNamaIbu.required = false; inputIbuKandung.required = false;
     }
   });
 
+  // FUNGSI UNTUK MENGUBAH FILE JADI BASE64
+  function getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve({
+        base64: reader.result.split(',')[1],
+        mimeType: file.type
+      });
+      reader.onerror = error => reject(error);
+    });
+  }
+
   const form = document.getElementById('spmbForm');
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
     if (!form.checkValidity()) {
@@ -223,25 +193,63 @@
       form.reportValidity(); 
       return; 
     }
-    
+
+    const fileFoto = document.getElementById('fileFoto').files[0];
+    const fileKk = document.getElementById('fileKk').files[0];
+
+    // Validasi Ukuran File (Max 2MB)
+    if (fileFoto.size > 2 * 1024 * 1024 || fileKk.size > 2 * 1024 * 1024) {
+      alert("Ukuran file terlalu besar! Maksimal 2MB per file.");
+      return;
+    }
+
     document.getElementById('submitBtn').classList.add('d-none');
     document.getElementById('loader').classList.remove('d-none');
 
-    fetch(scriptURL, { 
-      method: 'POST', 
-      body: new FormData(form)
-    })
-    .then(response => {
-      document.getElementById('loader').classList.add('d-none');
-      document.getElementById('success-actions').classList.remove('d-none');
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    })
-    .catch(error => {
-      console.error('Error!', error.message);
-      alert("Maaf, terjadi kesalahan teknis. Silakan coba lagi.");
+    try {
+      // Tunggu konversi file ke base64 selesai
+      const fotoData = await getBase64(fileFoto);
+      const kkData = await getBase64(fileKk);
+
+      // Ambil data teks dari form
+      const formData = new FormData(form);
+      let payload = Object.fromEntries(formData.entries());
+
+      // Sisipkan data file ke dalam payload
+      payload.fotoBase64 = fotoData.base64;
+      payload.fotoMimeType = fotoData.mimeType;
+      payload.kkBase64 = kkData.base64;
+      payload.kkMimeType = kkData.mimeType;
+
+      // Kirim sebagai JSON string dengan tipe teks (untuk hindari blokir CORS CF Pages)
+      fetch(scriptURL, { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.result === "success") {
+          document.getElementById('loader').classList.add('d-none');
+          document.getElementById('success-actions').classList.remove('d-none');
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        } else {
+          throw new Error(data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error!', error);
+        alert("Terjadi kesalahan teknis saat mengupload. Coba lagi.");
+        document.getElementById('submitBtn').classList.remove('d-none');
+        document.getElementById('loader').classList.add('d-none');
+      });
+
+    } catch (error) {
+      console.error('File Error!', error);
+      alert("Gagal memproses file. Pastikan file tidak rusak.");
       document.getElementById('submitBtn').classList.remove('d-none');
       document.getElementById('loader').classList.add('d-none');
-    });
+    }
   });
 
   document.getElementById('btnReload').addEventListener('click', function() {
