@@ -26,11 +26,9 @@
     .upload-note { font-size: 0.75rem; color: #dc3545; }
     .flatpickr-input[readonly] { background-color: #fff; }
 
-    /* CSS KOTAK PAKTA INTEGRITAS */
     .pakta-box { background-color: #fff9e6; border-left: 5px solid #ffc107; border-radius: 10px; padding: 15px; margin-top: 30px; margin-bottom: 20px; }
     .pakta-text { font-size: 0.9rem; color: #444; line-height: 1.5; text-align: justify; margin-bottom: 0; }
     
-    /* MODIFIKASI TAMPILAN ACCORDION BIAR KEREN */
     .accordion-button:not(.collapsed) { background-color: #e9ecef; color: #0d6efd; font-weight: bold; box-shadow: inset 0 -1px 0 rgba(0,0,0,.125); }
     .accordion-button { font-weight: 600; color: #444; }
   </style>
@@ -68,7 +66,7 @@
                 </h2>
                 <div id="collapseSatu" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
                   <div class="accordion-body text-muted small">
-                    Pendaftaran dilakukan secara online dengan mengisi formulir di bawah ini dengan data yang valid dan sebenar-benarnya. Pastikan semua berkas persyaratan (Foto dan KK) telah disiapkan.
+                    Pendaftaran dilakukan secara online dengan mengisi formulir di bawah ini dengan data yang valid dan sebenar-benarnya. Pastikan semua berkas persyaratan (Foto, KK, KTP Wali, dan Akta Kelahiran) telah disiapkan.
                   </div>
                 </div>
               </div>
@@ -212,6 +210,16 @@
                 <input type="file" id="fileKk" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
                 <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
               </div>
+              <div class="col-md-6">
+                <label class="form-label">Scan KTP Orang Tua/Wali*</label>
+                <input type="file" id="fileKtp" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
+                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Scan Akta Kelahiran Siswa*</label>
+                <input type="file" id="fileAkta" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
+                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
+              </div>
             </div>
 
             <div class="pakta-box shadow-sm">
@@ -227,7 +235,7 @@
             
             <div id="loader" class="text-center mt-3 d-none">
               <div class="spinner-border text-primary" role="status"></div>
-              <p class="mt-2 fw-bold text-primary">Sedang mengupload berkas dan menyimpan data... Mohon tunggu (Jangan tutup halaman).</p>
+              <p class="mt-2 fw-bold text-primary">Sedang mengupload 4 berkas dan menyimpan data... Mohon tunggu (Jangan tutup halaman).</p>
             </div>
             
             <div id="success-actions" class="mt-4 d-none text-center">
@@ -260,8 +268,8 @@
     allowInput: true         
   });
 
-  // URL DEPLOYMENT GOOGLE SCRIPT
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxkayTd-7njPQeZUmLUJxBKP0pCwzSjNl6TpWuF6-naC7eLpVEhytlBpk01HyaUvSMgcg/exec';
+  // GANTI DENGAN URL WEB APP DEPLOYMENT BARU ANTUM !!
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwebKZ_O4J7_VA0bd34x15274m9hxCzAKldm_Apx6GIsVQ9evC4fiWHaZOp1gXG_0BdhA/exec';
 
   const selectTinggal = document.getElementById('tinggal_bersama');
   const sectionOrtu = document.getElementById('section_ortu');
@@ -306,9 +314,13 @@
 
     const fileFoto = document.getElementById('fileFoto').files[0];
     const fileKk = document.getElementById('fileKk').files[0];
+    const fileKtp = document.getElementById('fileKtp').files[0];   // Ambil File KTP
+    const fileAkta = document.getElementById('fileAkta').files[0]; // Ambil File Akta
 
-    if (fileFoto.size > 2 * 1024 * 1024 || fileKk.size > 2 * 1024 * 1024) {
-      alert("Ukuran file terlalu besar! Maksimal 2MB per file.");
+    // Validasi Limit Size untuk ke-4 File
+    const maxSize = 2 * 1024 * 1024;
+    if (fileFoto.size > maxSize || fileKk.size > maxSize || fileKtp.size > maxSize || fileAkta.size > maxSize) {
+      alert("Ada ukuran file yang terlalu besar! Pastikan masing-masing file maksimal 2MB.");
       return;
     }
 
@@ -318,14 +330,23 @@
     try {
       const fotoData = await getBase64(fileFoto);
       const kkData = await getBase64(fileKk);
+      const ktpData = await getBase64(fileKtp);   // Konversi KTP
+      const aktaData = await getBase64(fileAkta); // Konversi Akta
 
       const formData = new FormData(form);
       let payload = Object.fromEntries(formData.entries());
 
       payload.fotoBase64 = fotoData.base64;
       payload.fotoMimeType = fotoData.mimeType;
+      
       payload.kkBase64 = kkData.base64;
       payload.kkMimeType = kkData.mimeType;
+      
+      payload.ktpBase64 = ktpData.base64;
+      payload.ktpMimeType = ktpData.mimeType;
+      
+      payload.aktaBase64 = aktaData.base64;
+      payload.aktaMimeType = aktaData.mimeType;
 
       fetch(scriptURL, { 
         method: 'POST', 
