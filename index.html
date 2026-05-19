@@ -35,6 +35,10 @@
 </head>
 <body>
 
+<audio id="bgMusic" loop autoplay style="display: none;">
+  <source src="https://files.catbox.moe/cdqmhb.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-10">
@@ -260,6 +264,14 @@
 <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
 
 <script>
+  // TRICK UNTUK BYPASS BROWSER AUTOPLAY POLICY
+  document.body.addEventListener('click', function() {
+    var bgMusic = document.getElementById('bgMusic');
+    if (bgMusic.paused) {
+      bgMusic.play();
+    }
+  }, { once: true }); // Listener hanya jalan sekali
+
   flatpickr("#tgl_lahir", {
     altInput: true,          
     altFormat: "d/m/Y",      
@@ -268,7 +280,7 @@
     allowInput: true         
   });
 
-  // GANTI DENGAN URL WEB APP DEPLOYMENT BARU ANTUM !!
+  // URL DEPLOYMENT GOOGLE SCRIPT
   const scriptURL = 'https://script.google.com/macros/s/AKfycbwebKZ_O4J7_VA0bd34x15274m9hxCzAKldm_Apx6GIsVQ9evC4fiWHaZOp1gXG_0BdhA/exec';
 
   const selectTinggal = document.getElementById('tinggal_bersama');
