@@ -70,7 +70,38 @@
                 </h2>
                 <div id="collapseSatu" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
                   <div class="accordion-body text-muted small">
-                    Pendaftaran dilakukan secara online dengan mengisi formulir di bawah ini dengan data yang valid dan sebenar-benarnya. Pastikan semua berkas persyaratan (Foto, KK, KTP Wali, dan Akta Kelahiran) telah disiapkan.
+                    Pendaftaran dilakukan secara online dengan mengisi formulir di bawah ini dengan data yang valid dan sebenar-benarnya. Upload berkas persyaratan bersifat opsional, namun disarankan jika sudah tersedia.
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item border-0 border-bottom">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDua">
+                    Pendaftaran Ulang
+                  </button>
+                </h2>
+                <div id="collapseDua" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
+                  <div class="accordion-body text-muted small">
+                    Jadwal dan persyaratan pendaftaran ulang akan diinformasikan lebih lanjut setelah proses verifikasi data online selesai. Informasi akan dibagikan melalui Grup WhatsApp resmi.
+                  </div>
+                </div>
+              </div>
+              
+              <div class="accordion-item border-0 border-bottom">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTiga">
+                    Rincian Biaya Masuk
+                  </button>
+                </h2>
+                <div id="collapseTiga" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
+                  <div class="accordion-body text-muted small">
+                    Biaya masuk <strong>hanya</strong> diperuntukkan untuk pembuatan seragam siswa, yaitu:
+                    <ul class="mt-2 mb-2">
+                      <li>1 Stel Pakaian Olah Raga</li>
+                      <li>1 Stel Pakaian Batik</li>
+                    </ul>
+                    <em>*Nominal rincian biaya akan diinformasikan kemudian.</em>
                   </div>
                 </div>
               </div>
@@ -202,27 +233,27 @@
               <div class="col-md-12"><label class="form-label">Asal Sekolah (TK/PAUD)</label><input type="text" name="asal_sekolah" class="form-control"></div>
             </div>
 
-            <div class="section-header text-uppercase">D. Upload Berkas (Wajib)</div>
+            <div class="section-header text-uppercase">D. Upload Berkas (Opsional)</div>
             <div class="row g-3 mb-2">
               <div class="col-md-6">
-                <label class="form-label">Pas Foto Calon Siswa 3x4*</label>
-                <input type="file" id="fileFoto" class="form-control" accept="image/jpeg, image/png" required>
-                <div class="upload-note mt-1">Format: JPG/PNG. Maksimal 2MB.</div>
+                <label class="form-label">Pas Foto Calon Siswa 3x4</label>
+                <input type="file" id="fileFoto" class="form-control" accept="image/jpeg, image/png">
+                <div class="upload-note mt-1 text-muted">Format: JPG/PNG. Maksimal 2MB.</div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Scan Kartu Keluarga (KK)*</label>
-                <input type="file" id="fileKk" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
-                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
+                <label class="form-label">Scan Kartu Keluarga (KK)</label>
+                <input type="file" id="fileKk" class="form-control" accept="image/jpeg, image/png, application/pdf">
+                <div class="upload-note mt-1 text-muted">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Scan KTP Orang Tua/Wali*</label>
-                <input type="file" id="fileKtp" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
-                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
+                <label class="form-label">Scan KTP Orang Tua/Wali</label>
+                <input type="file" id="fileKtp" class="form-control" accept="image/jpeg, image/png, application/pdf">
+                <div class="upload-note mt-1 text-muted">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Scan Akta Kelahiran Siswa*</label>
-                <input type="file" id="fileAkta" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
-                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
+                <label class="form-label">Scan Akta Kelahiran Siswa</label>
+                <input type="file" id="fileAkta" class="form-control" accept="image/jpeg, image/png, application/pdf">
+                <div class="upload-note mt-1 text-muted">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
               </div>
             </div>
 
@@ -239,14 +270,14 @@
             
             <div id="loader" class="text-center mt-3 d-none">
               <div class="spinner-border text-primary" role="status"></div>
-              <p class="mt-2 fw-bold text-primary">Sedang mengupload 4 berkas dan menyimpan data... Mohon tunggu (Jangan tutup halaman).</p>
+              <p class="mt-2 fw-bold text-primary">Sedang menyimpan data... Mohon tunggu (Jangan tutup halaman).</p>
             </div>
             
             <div id="success-actions" class="mt-4 d-none text-center">
               <div class="success-box mb-3">
                 <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
                 <h5 class="fw-bold text-success mt-2">Pendaftaran Berhasil!</h5>
-                <p class="small mb-0">Data siswa dan berkas telah tersimpan di sistem.</p>
+                <p class="small mb-0">Data siswa telah tersimpan di sistem.</p>
               </div>
               <button type="button" class="btn btn-outline-primary w-100 py-3 fw-bold" id="btnReload">Isi Formulir Baru</button>
             </div>
@@ -303,6 +334,7 @@
   });
 
   function getBase64(file) {
+    if (!file) return Promise.resolve(null); // REVISI: Kalau tidak ada file, lewati (jangan error)
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -326,12 +358,15 @@
 
     const fileFoto = document.getElementById('fileFoto').files[0];
     const fileKk = document.getElementById('fileKk').files[0];
-    const fileKtp = document.getElementById('fileKtp').files[0];   // Ambil File KTP
-    const fileAkta = document.getElementById('fileAkta').files[0]; // Ambil File Akta
+    const fileKtp = document.getElementById('fileKtp').files[0];   
+    const fileAkta = document.getElementById('fileAkta').files[0]; 
 
-    // Validasi Limit Size untuk ke-4 File
     const maxSize = 2 * 1024 * 1024;
-    if (fileFoto.size > maxSize || fileKk.size > maxSize || fileKtp.size > maxSize || fileAkta.size > maxSize) {
+    // REVISI: Cek ukuran hanya jika file-nya dipilih/ada
+    if ( (fileFoto && fileFoto.size > maxSize) || 
+         (fileKk && fileKk.size > maxSize) || 
+         (fileKtp && fileKtp.size > maxSize) || 
+         (fileAkta && fileAkta.size > maxSize) ) {
       alert("Ada ukuran file yang terlalu besar! Pastikan masing-masing file maksimal 2MB.");
       return;
     }
@@ -340,25 +375,20 @@
     document.getElementById('loader').classList.remove('d-none');
 
     try {
+      // PROSES KONVERSI (Bisa bernilai null kalau kosong, tapi nggak error)
       const fotoData = await getBase64(fileFoto);
       const kkData = await getBase64(fileKk);
-      const ktpData = await getBase64(fileKtp);   // Konversi KTP
-      const aktaData = await getBase64(fileAkta); // Konversi Akta
+      const ktpData = await getBase64(fileKtp);   
+      const aktaData = await getBase64(fileAkta); 
 
       const formData = new FormData(form);
       let payload = Object.fromEntries(formData.entries());
 
-      payload.fotoBase64 = fotoData.base64;
-      payload.fotoMimeType = fotoData.mimeType;
-      
-      payload.kkBase64 = kkData.base64;
-      payload.kkMimeType = kkData.mimeType;
-      
-      payload.ktpBase64 = ktpData.base64;
-      payload.ktpMimeType = ktpData.mimeType;
-      
-      payload.aktaBase64 = aktaData.base64;
-      payload.aktaMimeType = aktaData.mimeType;
+      // MASUKKAN KE PAYLOAD HANYA JIKA DATANYA ADA
+      if(fotoData) { payload.fotoBase64 = fotoData.base64; payload.fotoMimeType = fotoData.mimeType; }
+      if(kkData) { payload.kkBase64 = kkData.base64; payload.kkMimeType = kkData.mimeType; }
+      if(ktpData) { payload.ktpBase64 = ktpData.base64; payload.ktpMimeType = ktpData.mimeType; }
+      if(aktaData) { payload.aktaBase64 = aktaData.base64; payload.aktaMimeType = aktaData.mimeType; }
 
       fetch(scriptURL, { 
         method: 'POST', 
@@ -377,7 +407,7 @@
       })
       .catch(error => {
         console.error('Error!', error);
-        alert("Terjadi kesalahan teknis saat mengupload. Coba lagi.");
+        alert("Terjadi kesalahan teknis saat menyimpan data. Coba lagi.");
         document.getElementById('submitBtn').classList.remove('d-none');
         document.getElementById('loader').classList.add('d-none');
       });
