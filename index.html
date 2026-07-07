@@ -83,7 +83,7 @@
             </div>
 
             <div class="security-note mb-4">
-              <strong><i class="bi bi-info-circle me-1"></i>Mode operator:</strong> upload KK, Akta, dan KTP pada halaman ini hanya dipakai untuk OCR/bantu input di browser. File dokumen tidak ikut dikirim ke Google Script.
+              <strong><i class="bi bi-info-circle me-1"></i>Mode operator:</strong> upload KK, Akta, dan KTP pada halaman ini hanya dipakai untuk AI bantu input. File dokumen tidak ikut dikirim ke Google Script, hanya dikirim sementara ke Cloudflare Worker untuk analisis Gemini.
             </div>
 
             <div class="accordion shadow-sm border-0" id="accordionSPMB">
@@ -128,48 +128,50 @@
             </div>
           </div>
 
-          <div class="section-header text-uppercase no-print">Bantu Input dari Berkas OCR</div>
+          <div class="section-header text-uppercase no-print">Bantu Input dari Berkas AI Gemini</div>
           <div class="ocr-box mb-4 no-print">
             <div class="row g-3">
+              <div class="col-12">
+                <div class="alert alert-primary small mb-0">
+                  <strong><i class="bi bi-stars me-1"></i>Mode AI:</strong> upload foto/scan KK, Akta, dan KTP. File hanya dikirim ke endpoint Cloudflare Worker <code>/api/extract-ai</code> untuk dianalisis Gemini, lalu hasil JSON ditampilkan untuk direview operator. Jangan klik kirim sebelum data dicek ulang dari dokumen asli.
+                </div>
+              </div>
               <div class="col-lg-4">
                 <label class="form-label">Foto/Scan KK</label>
-                <input type="file" id="ocrKkFile" class="form-control ocr-file" accept="image/jpeg,image/png,image/webp">
+                <input type="file" id="aiKkFile" class="form-control ai-file" accept="image/jpeg,image/png,image/webp">
                 <img id="previewKk" class="preview-img" alt="Preview KK">
-                <button type="button" class="btn btn-outline-primary btn-sm mt-2 w-100" data-ocr-target="kk"><i class="bi bi-upc-scan me-1"></i>Baca OCR KK</button>
+                <div class="upload-note mt-1 text-muted">JPG/PNG/WEBP. Maksimal 5MB.</div>
               </div>
               <div class="col-lg-4">
                 <label class="form-label">Foto/Scan Akta</label>
-                <input type="file" id="ocrAktaFile" class="form-control ocr-file" accept="image/jpeg,image/png,image/webp">
+                <input type="file" id="aiAktaFile" class="form-control ai-file" accept="image/jpeg,image/png,image/webp">
                 <img id="previewAkta" class="preview-img" alt="Preview Akta">
-                <button type="button" class="btn btn-outline-primary btn-sm mt-2 w-100" data-ocr-target="akta"><i class="bi bi-upc-scan me-1"></i>Baca OCR Akta</button>
+                <div class="upload-note mt-1 text-muted">JPG/PNG/WEBP. Maksimal 5MB.</div>
               </div>
               <div class="col-lg-4">
                 <label class="form-label">Foto/Scan KTP Orang Tua/Wali</label>
-                <input type="file" id="ocrKtpFile" class="form-control ocr-file" accept="image/jpeg,image/png,image/webp">
+                <input type="file" id="aiKtpFile" class="form-control ai-file" accept="image/jpeg,image/png,image/webp">
                 <img id="previewKtp" class="preview-img" alt="Preview KTP">
-                <button type="button" class="btn btn-outline-primary btn-sm mt-2 w-100" data-ocr-target="ktp"><i class="bi bi-upc-scan me-1"></i>Baca OCR KTP</button>
-              </div>
-              <div class="col-12">
-                <div id="ocrProgress" class="alert alert-info d-none mb-0 small"></div>
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Teks OCR KK</label>
-                <textarea id="ocrKkText" class="form-control ocr-text" placeholder="Hasil OCR KK akan muncul di sini. Bisa diedit sebelum dipakai."></textarea>
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Teks OCR Akta</label>
-                <textarea id="ocrAktaText" class="form-control ocr-text" placeholder="Hasil OCR Akta akan muncul di sini. Bisa diedit sebelum dipakai."></textarea>
-              </div>
-              <div class="col-md-4">
-                <label class="form-label">Teks OCR KTP</label>
-                <textarea id="ocrKtpText" class="form-control ocr-text" placeholder="Hasil OCR KTP akan muncul di sini. Bisa diedit sebelum dipakai."></textarea>
+                <div class="upload-note mt-1 text-muted">JPG/PNG/WEBP. Maksimal 5MB.</div>
               </div>
               <div class="col-12 d-flex flex-column flex-md-row gap-2">
-                <button type="button" id="btnApplyOcr" class="btn btn-success flex-fill"><i class="bi bi-magic me-1"></i>Isi Form dari Hasil OCR</button>
-                <button type="button" id="btnClearOcr" class="btn btn-outline-secondary flex-fill"><i class="bi bi-eraser me-1"></i>Bersihkan OCR</button>
+                <button type="button" id="btnAnalyzeAi" class="btn btn-primary flex-fill"><i class="bi bi-stars me-1"></i>Analisis Dokumen dengan Gemini AI</button>
+                <button type="button" id="btnApplyAi" class="btn btn-success flex-fill" disabled><i class="bi bi-magic me-1"></i>Isi Form dari Hasil AI</button>
+                <button type="button" id="btnClearAi" class="btn btn-outline-secondary flex-fill"><i class="bi bi-eraser me-1"></i>Bersihkan AI</button>
               </div>
               <div class="col-12">
-                <p class="small-muted mb-0">Tips: gunakan foto JPG/PNG yang terang, lurus, dan tidak terpotong. PDF tidak diproses OCR di halaman ini. Periksa ulang hasil OCR sebelum menekan tombol kirim.</p>
+                <div id="aiProgress" class="alert alert-info d-none mb-0 small"></div>
+              </div>
+              <div class="col-md-7">
+                <label class="form-label">Hasil JSON Gemini</label>
+                <textarea id="aiJsonText" class="form-control ocr-text" rows="12" placeholder="Hasil AI akan muncul di sini. Operator boleh mengedit JSON sebelum mengisi form."></textarea>
+              </div>
+              <div class="col-md-5">
+                <label class="form-label">Peringatan / Catatan AI</label>
+                <div id="aiWarnings" class="bg-light border rounded p-3 small" style="min-height: 230px; white-space: pre-wrap;">Belum ada analisis.</div>
+              </div>
+              <div class="col-12">
+                <p class="small-muted mb-0">Tips: foto harus terang, lurus, tidak terpotong, dan angka NIK/KK terbaca jelas. Gemini membantu membaca dan menyusun JSON, tetapi operator tetap wajib mencocokkan ulang NIK, KK, nama, dan tanggal lahir.</p>
               </div>
             </div>
           </div>
@@ -255,7 +257,7 @@
             <div class="pakta-box shadow-sm no-print">
               <div class="form-check d-flex align-items-start m-0 p-0">
                 <input class="form-check-input mt-1 me-3" type="checkbox" id="paktaCheck" required style="width: 30px; height: 30px; flex-shrink: 0; cursor: pointer; border: 2px solid #0d6efd; margin-left: 0;">
-                <label class="form-check-label pakta-text" for="paktaCheck" style="cursor: pointer; padding-top: 4px;">Saya sebagai operator telah memeriksa kesesuaian data dengan dokumen pendaftaran yang diterima, serta memahami bahwa hasil OCR wajib dicek ulang sebelum dikirim ke sistem.</label>
+                <label class="form-check-label pakta-text" for="paktaCheck" style="cursor: pointer; padding-top: 4px;">Saya sebagai operator telah memeriksa kesesuaian data dengan dokumen pendaftaran yang diterima, serta memahami bahwa hasil AI wajib dicek ulang sebelum dikirim ke sistem.</label>
               </div>
             </div>
 
@@ -303,15 +305,16 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
 <script>
   'use strict';
 
   // ===================== KONFIGURASI =====================
   const scriptURL = 'https://script.google.com/macros/s/AKfycbwebKZ_O4J7_VA0bd34x15274m9hxCzAKldm_Apx6GIsVQ9evC4fiWHaZOp1gXG_0BdhA/exec';
-  const OPERATOR_PIN = '909090'; // Ganti sebelum deploy. Untuk keamanan kuat, gunakan Cloudflare Access/Zero Trust.
-  const MAX_OCR_FILE_SIZE = 4 * 1024 * 1024;
+  const AI_EXTRACT_URL = '/api/extract-ai';
+  const OPERATOR_PIN = '0303'; // Ganti sebelum deploy. Untuk keamanan kuat, gunakan Cloudflare Access/Zero Trust.
+  const MAX_AI_FILE_SIZE = 5 * 1024 * 1024;
+  const ALLOWED_AI_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
   // ===================== AKSES OPERATOR RINGAN =====================
   const operatorLock = document.getElementById('operatorLock');
@@ -353,13 +356,13 @@
   const inputNamaIbu = document.getElementById('nama_ibu');
   const inputIbuKandung = document.getElementById('ibu_kandung_wali');
 
-  selectTinggal.addEventListener('change', function() {
-    if (this.value === 'Bersama Orang Tua') {
+  function refreshOrtuWaliRequired() {
+    if (selectTinggal.value === 'Bersama Orang Tua') {
       sectionOrtu.style.display = 'block';
       sectionWali.style.display = 'none';
       inputNamaIbu.required = true;
       inputIbuKandung.required = false;
-    } else if (this.value === 'Bersama Wali') {
+    } else if (selectTinggal.value === 'Bersama Wali') {
       sectionOrtu.style.display = 'none';
       sectionWali.style.display = 'block';
       inputNamaIbu.required = false;
@@ -370,17 +373,17 @@
       inputNamaIbu.required = false;
       inputIbuKandung.required = false;
     }
-  });
+  }
+  selectTinggal.addEventListener('change', refreshOrtuWaliRequired);
 
-  // ===================== VALIDASI & NORMALISASI INPUT =====================
+  // ===================== NORMALISASI INPUT =====================
+  function normalizeSpaces(value) {
+    return String(value || '').replace(/\s+/g, ' ').trim();
+  }
+
   document.querySelectorAll('.digit-16').forEach(function(input) {
     input.addEventListener('input', function() {
       this.value = this.value.replace(/\D/g, '').slice(0, 16);
-      if (this.value.length > 0 && this.value.length !== 16) {
-        this.setCustomValidity('Harus 16 digit angka.');
-      } else {
-        this.setCustomValidity('');
-      }
     });
   });
 
@@ -396,30 +399,35 @@
     });
   });
 
-  function normalizeSpaces(value) {
-    return String(value || '').replace(/\s+/g, ' ').trim();
-  }
-
-  // ===================== OCR PREVIEW =====================
-  const ocrMap = {
-    kk: { file: 'ocrKkFile', text: 'ocrKkText', preview: 'previewKk', label: 'KK' },
-    akta: { file: 'ocrAktaFile', text: 'ocrAktaText', preview: 'previewAkta', label: 'Akta' },
-    ktp: { file: 'ocrKtpFile', text: 'ocrKtpText', preview: 'previewKtp', label: 'KTP' }
+  // ===================== AI GEMINI =====================
+  const aiFileMap = {
+    kk: { file: 'aiKkFile', preview: 'previewKk', label: 'KK' },
+    akta: { file: 'aiAktaFile', preview: 'previewAkta', label: 'Akta' },
+    ktp: { file: 'aiKtpFile', preview: 'previewKtp', label: 'KTP' }
   };
 
-  function setProgress(message, type = 'info') {
-    const box = document.getElementById('ocrProgress');
-    box.className = 'alert alert-' + type + ' small mb-0';
+  function setAiProgress(message, type) {
+    const box = document.getElementById('aiProgress');
+    box.className = 'alert alert-' + (type || 'info') + ' mb-0 small';
     box.textContent = message;
     box.classList.remove('d-none');
   }
 
-  function hideProgress() {
-    document.getElementById('ocrProgress').classList.add('d-none');
+  function hideAiProgress() {
+    document.getElementById('aiProgress').classList.add('d-none');
   }
 
-  Object.keys(ocrMap).forEach(function(key) {
-    const cfg = ocrMap[key];
+  function getSelectedAiFiles() {
+    const files = [];
+    Object.entries(aiFileMap).forEach(function([key, cfg]) {
+      const input = document.getElementById(cfg.file);
+      const file = input.files[0];
+      if (file) files.push({ key, label: cfg.label, file });
+    });
+    return files;
+  }
+
+  Object.values(aiFileMap).forEach(function(cfg) {
     const fileInput = document.getElementById(cfg.file);
     const preview = document.getElementById(cfg.preview);
     fileInput.addEventListener('change', function() {
@@ -429,14 +437,18 @@
         preview.removeAttribute('src');
         return;
       }
-      if (!file.type.startsWith('image/')) {
-        alert('OCR hanya menerima file gambar JPG/PNG/WEBP. Untuk PDF, ubah dulu menjadi gambar.');
+      if (!ALLOWED_AI_TYPES.includes(file.type)) {
+        alert('File AI hanya menerima gambar JPG, PNG, atau WEBP. Untuk PDF, ubah dulu menjadi gambar.');
         this.value = '';
+        preview.style.display = 'none';
+        preview.removeAttribute('src');
         return;
       }
-      if (file.size > MAX_OCR_FILE_SIZE) {
-        alert('Ukuran file OCR maksimal 4MB agar browser tidak berat.');
+      if (file.size > MAX_AI_FILE_SIZE) {
+        alert('Ukuran file maksimal 5MB per dokumen. Kompres atau foto ulang dokumen.');
         this.value = '';
+        preview.style.display = 'none';
+        preview.removeAttribute('src');
         return;
       }
       preview.src = URL.createObjectURL(file);
@@ -444,141 +456,125 @@
     });
   });
 
-  document.querySelectorAll('[data-ocr-target]').forEach(function(button) {
-    button.addEventListener('click', async function() {
-      const key = this.dataset.ocrTarget;
-      const cfg = ocrMap[key];
-      const file = document.getElementById(cfg.file).files[0];
-      if (!file) {
-        alert('Pilih foto/scan ' + cfg.label + ' terlebih dahulu.');
-        return;
+  function readAiJson() {
+    const text = document.getElementById('aiJsonText').value.trim();
+    if (!text) throw new Error('Hasil JSON AI masih kosong.');
+    return JSON.parse(text);
+  }
+
+  function formatWarnings(data) {
+    const warnings = [];
+    if (Array.isArray(data.peringatan)) warnings.push(...data.peringatan);
+    if (Array.isArray(data.catatan)) warnings.push(...data.catatan);
+    if (data.confidence) {
+      const low = Object.entries(data.confidence)
+        .filter(function(entry) { return Number(entry[1]) > 0 && Number(entry[1]) < 0.75; })
+        .map(function(entry) { return entry[0] + ' confidence ' + entry[1]; });
+      if (low.length) warnings.push('Field confidence rendah: ' + low.join(', '));
+    }
+    if (!data.nik || !/^\d{16}$/.test(String(data.nik))) warnings.push('NIK siswa kosong/tidak 16 digit. Wajib cek manual.');
+    if (!data.no_kk || !/^\d{16}$/.test(String(data.no_kk))) warnings.push('Nomor KK kosong/tidak 16 digit. Wajib cek manual.');
+    return warnings.length ? warnings.join('\n- ') : 'Tidak ada peringatan dari AI. Tetap cek ulang data penting.';
+  }
+
+  document.getElementById('btnAnalyzeAi').addEventListener('click', async function() {
+    const selected = getSelectedAiFiles();
+    if (!selected.length) {
+      alert('Pilih minimal satu dokumen: KK, Akta, atau KTP.');
+      return;
+    }
+
+    const btn = this;
+    btn.disabled = true;
+    document.getElementById('btnApplyAi').disabled = true;
+    document.getElementById('aiJsonText').value = '';
+    document.getElementById('aiWarnings').textContent = 'Sedang dianalisis...';
+    setAiProgress('Mengirim dokumen ke AI Gemini melalui Cloudflare Worker. Mohon tunggu.', 'info');
+
+    try {
+      const fd = new FormData();
+      selected.forEach(function(item) {
+        fd.append(item.key, item.file, item.file.name);
+      });
+      fd.append('tahun_ajaran', '2026/2027');
+      fd.append('sekolah', 'SD Negeri 3 Pringgabaya');
+
+      const response = await fetch(AI_EXTRACT_URL, { method: 'POST', body: fd });
+      const result = await response.json().catch(function() {
+        throw new Error('Endpoint AI tidak mengembalikan JSON valid.');
+      });
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || 'Analisis AI gagal.');
       }
-      try {
-        this.disabled = true;
-        setProgress('Memproses OCR ' + cfg.label + '... proses bisa memakan waktu beberapa detik.', 'info');
-        const result = await Tesseract.recognize(file, 'ind+eng', {
-          logger: function(m) {
-            if (m.status && typeof m.progress === 'number') {
-              const percent = Math.round(m.progress * 100);
-              setProgress('OCR ' + cfg.label + ': ' + m.status + ' ' + percent + '%', 'info');
-            }
-          }
-        });
-        document.getElementById(cfg.text).value = result.data.text || '';
-        setProgress('OCR ' + cfg.label + ' selesai. Silakan cek teks lalu klik "Isi Form dari Hasil OCR".', 'success');
-      } catch (error) {
-        console.error(error);
-        setProgress('OCR gagal. Coba gunakan foto yang lebih jelas/terang.', 'danger');
-      } finally {
-        this.disabled = false;
-      }
-    });
+
+      document.getElementById('aiJsonText').value = JSON.stringify(result.data || {}, null, 2);
+      document.getElementById('aiWarnings').textContent = '- ' + formatWarnings(result.data || {});
+      document.getElementById('btnApplyAi').disabled = false;
+      setAiProgress('Analisis Gemini selesai. Periksa JSON dan catatan sebelum klik "Isi Form dari Hasil AI".', 'success');
+    } catch (error) {
+      console.error(error);
+      document.getElementById('aiWarnings').textContent = error.message;
+      setAiProgress('Analisis AI gagal: ' + error.message, 'danger');
+    } finally {
+      btn.disabled = false;
+    }
   });
 
-  document.getElementById('btnClearOcr').addEventListener('click', function() {
-    Object.values(ocrMap).forEach(function(cfg) {
+  document.getElementById('btnApplyAi').addEventListener('click', function() {
+    try {
+      const data = sanitizeAiData(readAiJson());
+      fillFormSafely(data);
+      document.getElementById('aiWarnings').textContent = '- ' + formatWarnings(data) + '\n- Data sudah dimasukkan ke form. Mohon cek ulang sebelum kirim.';
+      setAiProgress('Hasil AI sudah dimasukkan ke form. Wajib cek ulang NIK, KK, nama, TTL, dan data orang tua.', 'warning');
+    } catch (error) {
+      alert('JSON AI belum valid: ' + error.message);
+    }
+  });
+
+  document.getElementById('btnClearAi').addEventListener('click', function() {
+    Object.values(aiFileMap).forEach(function(cfg) {
       document.getElementById(cfg.file).value = '';
-      document.getElementById(cfg.text).value = '';
       const preview = document.getElementById(cfg.preview);
       preview.style.display = 'none';
       preview.removeAttribute('src');
     });
-    hideProgress();
+    document.getElementById('aiJsonText').value = '';
+    document.getElementById('aiWarnings').textContent = 'Belum ada analisis.';
+    document.getElementById('btnApplyAi').disabled = true;
+    hideAiProgress();
   });
 
-  document.getElementById('btnApplyOcr').addEventListener('click', function() {
-    const kkText = document.getElementById('ocrKkText').value;
-    const aktaText = document.getElementById('ocrAktaText').value;
-    const ktpText = document.getElementById('ocrKtpText').value;
-    const parsed = parseOcrData(kkText, aktaText, ktpText);
-    fillFormSafely(parsed);
-    setProgress('Hasil OCR sudah dicoba dimasukkan ke form. Mohon periksa ulang semua field, terutama NIK/KK dan tanggal lahir.', 'warning');
-  });
-
-  // ===================== PARSER OCR SEDERHANA =====================
-  function cleanOcr(text) {
-    return String(text || '')
-      .replace(/[|]/g, 'I')
-      .replace(/[“”]/g, '"')
-      .replace(/\r/g, '\n')
-      .replace(/[ \t]+/g, ' ')
-      .toUpperCase();
-  }
-
-  function getAll16Digit(text) {
-    const matches = cleanOcr(text).match(/\b\d{16}\b/g);
-    return matches ? Array.from(new Set(matches)) : [];
-  }
-
-  function valueAfterLabel(text, labels) {
-    const normalized = cleanOcr(text);
-    for (const label of labels) {
-      const regex = new RegExp(label + '\\s*[:;]?\\s*([^\\n]+)', 'i');
-      const found = normalized.match(regex);
-      if (found && found[1]) {
-        return normalizeSpaces(found[1].replace(/[^A-Z0-9 .,'\/-]/g, ''));
-      }
-    }
-    return '';
-  }
-
-  function extractDate(text) {
-    const normalized = cleanOcr(text);
-    const date1 = normalized.match(/\b(\d{1,2})[\-/ .](\d{1,2})[\-/ .](\d{4})\b/);
-    if (date1) return toIsoDate(date1[1], date1[2], date1[3]);
-
-    const monthMap = {
-      JANUARI: '01', FEBRUARI: '02', MARET: '03', APRIL: '04', MEI: '05', JUNI: '06', JULI: '07', AGUSTUS: '08', SEPTEMBER: '09', OKTOBER: '10', NOVEMBER: '11', DESEMBER: '12'
-    };
-    const monthRegex = new RegExp('\\b(\\d{1,2})\\s+(JANUARI|FEBRUARI|MARET|APRIL|MEI|JUNI|JULI|AGUSTUS|SEPTEMBER|OKTOBER|NOVEMBER|DESEMBER)\\s+(\\d{4})\\b');
-    const date2 = normalized.match(monthRegex);
-    if (date2) return toIsoDate(date2[1], monthMap[date2[2]], date2[3]);
-    return '';
-  }
-
-  function toIsoDate(day, month, year) {
-    const d = String(day).padStart(2, '0');
-    const m = String(month).padStart(2, '0');
-    const y = String(year);
-    if (+m < 1 || +m > 12 || +d < 1 || +d > 31) return '';
-    return y + '-' + m + '-' + d;
-  }
-
-  function guessGender(text) {
-    const normalized = cleanOcr(text);
-    if (/LAKI[ -]?LAKI|\bL\b/.test(normalized)) return 'Laki-laki';
-    if (/PEREMPUAN|\bP\b/.test(normalized)) return 'Perempuan';
-    return '';
-  }
-
-  function parseOcrData(kkText, aktaText, ktpText) {
-    const kk = cleanOcr(kkText);
-    const akta = cleanOcr(aktaText);
-    const ktp = cleanOcr(ktpText);
-    const all = kk + '\n' + akta + '\n' + ktp;
-    const digits = getAll16Digit(all);
-    const kkDigits = getAll16Digit(kk);
-    const aktaDigits = getAll16Digit(akta);
-
-    const data = {
-      no_kk: kkDigits[0] || '',
-      nik: aktaDigits[0] || kkDigits[1] || digits[0] || '',
-      nama: valueAfterLabel(akta, ['NAMA ANAK', 'NAMA', 'NAMA LENGKAP']) || valueAfterLabel(kk, ['NAMA LENGKAP', 'NAMA']),
-      jk: guessGender(akta) || guessGender(kk),
-      agama: valueAfterLabel(kk, ['AGAMA']) || 'Islam',
-      tempat_lahir: valueAfterLabel(akta, ['TEMPAT LAHIR', 'LAHIR DI', 'DILAHIRKAN DI']) || valueAfterLabel(kk, ['TEMPAT LAHIR']),
-      tgl_lahir: extractDate(akta) || extractDate(kk),
-      alamat: valueAfterLabel(kk, ['ALAMAT', 'DUSUN', 'DESA']) || valueAfterLabel(ktp, ['ALAMAT']),
-      nama_ayah: valueAfterLabel(akta, ['AYAH', 'NAMA AYAH']) || valueAfterLabel(kk, ['AYAH']),
-      nama_ibu: valueAfterLabel(akta, ['IBU', 'NAMA IBU']) || valueAfterLabel(kk, ['IBU']),
-      tinggal_bersama: 'Bersama Orang Tua'
-    };
-
-    // Jangan terlalu agresif mengisi nama dari KK karena tabel KK sering mengandung banyak anggota keluarga.
-    Object.keys(data).forEach(function(key) {
-      if (typeof data[key] === 'string') data[key] = normalizeSpaces(data[key]).replace(/\s{2,}/g, ' ');
+  function sanitizeAiData(data) {
+    const allowed = [
+      'nama','jk','agama','no_kk','nik','tempat_lahir','tgl_lahir','alamat','no_hp','penerima_kip','tinggal_bersama',
+      'nama_ayah','tahun_ayah','pdk_ayah','kerja_ayah','hasil_ayah','nama_ibu','tahun_ibu','pdk_ibu','kerja_ibu','hasil_ibu',
+      'nama_wali','tahun_wali','pdk_wali','kerja_wali','hasil_wali','ibu_kandung_wali','tahun_ibu_wali',
+      'tinggi','berat','anak_ke','saudara','asal_sekolah'
+    ];
+    const out = {};
+    allowed.forEach(function(key) {
+      if (data[key] === null || data[key] === undefined) return;
+      let value = String(data[key]).trim();
+      if (!value) return;
+      if (['nik','no_kk'].includes(key)) value = value.replace(/\D/g, '').slice(0, 16);
+      if (key.startsWith('tahun_')) value = value.replace(/\D/g, '').slice(0, 4);
+      if (key === 'tgl_lahir') value = normalizeDate(value);
+      if (['nama','tempat_lahir','alamat','nama_ayah','nama_ibu','nama_wali','ibu_kandung_wali','kerja_ayah','kerja_ibu','kerja_wali','asal_sekolah'].includes(key)) value = normalizeSpaces(value).toUpperCase();
+      out[key] = value;
     });
-    return data;
+    if (!out.agama) out.agama = 'Islam';
+    if (!out.penerima_kip) out.penerima_kip = 'Tidak';
+    if (!out.tinggal_bersama && (out.nama_ayah || out.nama_ibu)) out.tinggal_bersama = 'Bersama Orang Tua';
+    return out;
+  }
+
+  function normalizeDate(value) {
+    const v = String(value || '').trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(v)) return v;
+    const m = v.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{4})$/);
+    if (m) return m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');
+    return v;
   }
 
   function fillFormSafely(data) {
@@ -587,7 +583,7 @@
       if (!value) return;
       const field = form.elements[name];
       if (!field) return;
-      if (field.value && !confirm('Field "' + name + '" sudah berisi. Timpa dengan hasil OCR?')) return;
+      if (field.value && !confirm('Field "' + name + '" sudah berisi. Timpa dengan hasil AI?')) return;
       field.value = value;
       field.dispatchEvent(new Event('input', { bubbles: true }));
       field.dispatchEvent(new Event('change', { bubbles: true }));
@@ -595,6 +591,7 @@
     if (data.tgl_lahir && document.getElementById('tgl_lahir')._flatpickr) {
       document.getElementById('tgl_lahir')._flatpickr.setDate(data.tgl_lahir, true, 'Y-m-d');
     }
+    refreshOrtuWaliRequired();
   }
 
   // ===================== SUBMIT GOOGLE SCRIPT =====================
@@ -629,7 +626,7 @@
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
       payload.waktu_input = new Date().toISOString();
-      payload.sumber_input = 'Operator SPMB - OCR bantu input';
+      payload.sumber_input = document.getElementById('aiJsonText').value.trim() ? 'Operator SPMB - Gemini AI bantu input' : 'Operator SPMB - input manual';
 
       const response = await fetch(scriptURL, {
         method: 'POST',
