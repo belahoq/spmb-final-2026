@@ -1,5 +1,5 @@
 const ALLOWED_MIME_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp']);
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
 const DEFAULT_MODEL = 'gemini-1.5-flash';
 
 function jsonResponse(body, status = 200) {
@@ -98,7 +98,7 @@ export async function onRequestPost(context) {
         return jsonResponse({ ok: false, error: `${item.label} harus JPG, PNG, atau WEBP.` }, 400);
       }
       if (item.file.size > MAX_FILE_SIZE) {
-        return jsonResponse({ ok: false, error: `${item.label} lebih dari 5MB.` }, 400);
+        return jsonResponse({ ok: false, error: `${item.label} lebih dari 2MB setelah kompresi.` }, 400);
       }
     }
 
@@ -169,17 +169,16 @@ Schema JSON wajib:
     for (const item of docs) {
       const base64 = await fileToBase64(item.file);
       parts.push({ text: `Dokumen berikut adalah ${item.label}.` });
-      parts.push({ inlineData: { mimeType: item.file.type, data: base64 } });
+      parts.push({ inline_data: { mime_type: item.file.type, data: base64 } });
     }
 
     const model = env.GEMINI_MODEL || DEFAULT_MODEL;
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(env.GEMINI_API_KEY)}`;
 
     const geminiResponse = await fetch(endpoint, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': env.GEMINI_API_KEY
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         contents: [{ role: 'user', parts }],
@@ -189,12 +188,7 @@ Schema JSON wajib:
           maxOutputTokens: 4096,
           responseMimeType: 'application/json'
         },
-        safetySettings: [
-          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_NONE' },
-          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_NONE' },
-          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },
-          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' }
-        ]
+        // Safety settings tidak dioverride. Biarkan default Gemini agar kompatibel lintas model.
       })
     });
 
@@ -218,6 +212,6 @@ Schema JSON wajib:
 
     return jsonResponse({ ok: true, model, data: extracted });
   } catch (error) {
-    return jsonResponse({ ok: false, error: error.message || 'Kesalahan tidak diketahui.' }, 500);
+    return jsonResponse({ ok: false, error: error && error.stack ? error.stack.slice(0, 1200) : (error.message || 'Kesalahan tidak diketahui.') }, 500);
   }
 }

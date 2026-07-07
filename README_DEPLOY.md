@@ -43,3 +43,20 @@ Frontend akan memanggil:
 Cloudflare Pages otomatis menjalankan file:
 
 `functions/api/extract-ai.js`
+
+## Patch 502 Cloudflare
+
+Jika tombol Analisis Dokumen menampilkan error HTTP 502 dengan cuplikan HTML Cloudflare, gunakan versi patch ini. Perubahan penting:
+
+- Gambar dikompres di browser menjadi JPG maksimal 2MB per dokumen sebelum dikirim ke `/api/extract-ai`.
+- Endpoint Gemini memakai format resmi `:generateContent?key=GEMINI_API_KEY`.
+- Payload gambar memakai `inline_data` dan `mime_type` sesuai contoh REST Gemini.
+- Override `safetySettings` dihapus agar lebih kompatibel lintas model Gemini.
+
+Setelah mengganti file, commit/push ke GitHub dan redeploy Cloudflare Pages. Tes endpoint:
+
+```text
+https://domain-bapak/api/extract-ai
+```
+
+Jika endpoint aktif, hasil GET harus JSON. Untuk analisis dokumen, gunakan tombol dari halaman form.

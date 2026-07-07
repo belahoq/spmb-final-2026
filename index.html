@@ -313,7 +313,9 @@
   const scriptURL = 'https://script.google.com/macros/s/AKfycbwebKZ_O4J7_VA0bd34x15274m9hxCzAKldm_Apx6GIsVQ9evC4fiWHaZOp1gXG_0BdhA/exec';
   const AI_EXTRACT_URL = '/api/extract-ai';
   const OPERATOR_PIN = '0303'; // Ganti sebelum deploy. Untuk keamanan kuat, gunakan Cloudflare Access/Zero Trust.
-  const MAX_AI_FILE_SIZE = 5 * 1024 * 1024;
+  const MAX_AI_FILE_SIZE = 8 * 1024 * 1024;
+  const MAX_AI_UPLOAD_SIZE = 2 * 1024 * 1024;
+  const AI_IMAGE_MAX_DIMENSION = 1600;
   const ALLOWED_AI_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 
   // ===================== AKSES OPERATOR RINGAN =====================
@@ -427,6 +429,58 @@
     return files;
   }
 
+
+  function loadImageFile(file) {
+    return new Promise(function(resolve, reject) {
+      const img = new Image();
+      img.onload = function() {
+        URL.revokeObjectURL(img.src);
+        resolve(img);
+      };
+      img.onerror = function() {
+        URL.revokeObjectURL(img.src);
+        reject(new Error('Gagal membaca gambar ' + file.name));
+      };
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  function canvasToBlob(canvas, mimeType, quality) {
+    return new Promise(function(resolve, reject) {
+      canvas.toBlob(function(blob) {
+        if (!blob) reject(new Error('Gagal mengompres gambar.'));
+        else resolve(blob);
+      }, mimeType, quality);
+    });
+  }
+
+  async function compressImageForAi(file, label) {
+    const img = await loadImageFile(file);
+    const scale = Math.min(1, AI_IMAGE_MAX_DIMENSION / Math.max(img.width, img.height));
+    const width = Math.max(1, Math.round(img.width * scale));
+    const height = Math.max(1, Math.round(img.height * scale));
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(img, 0, 0, width, height);
+
+    const qualities = [0.84, 0.76, 0.68, 0.58];
+    let blob = null;
+    for (const quality of qualities) {
+      blob = await canvasToBlob(canvas, 'image/jpeg', quality);
+      if (blob.size <= MAX_AI_UPLOAD_SIZE) break;
+    }
+
+    if (!blob || blob.size > MAX_AI_UPLOAD_SIZE) {
+      throw new Error(label + ' masih terlalu besar setelah kompresi. Coba foto ulang lebih dekat/jelas, lalu crop bagian dokumen saja.');
+    }
+
+    return new File([blob], label.toLowerCase().replace(/\s+/g, '-') + '.jpg', { type: 'image/jpeg' });
+  }
+
   Object.values(aiFileMap).forEach(function(cfg) {
     const fileInput = document.getElementById(cfg.file);
     const preview = document.getElementById(cfg.preview);
@@ -445,7 +499,7 @@
         return;
       }
       if (file.size > MAX_AI_FILE_SIZE) {
-        alert('Ukuran file maksimal 5MB per dokumen. Kompres atau foto ulang dokumen.');
+        alert('Ukuran file maksimal 8MB per dokumen. Sistem akan mengompres otomatis sebelum dikirim ke AI.');
         this.value = '';
         preview.style.display = 'none';
         preview.removeAttribute('src');
@@ -493,11 +547,14 @@
 
     try {
       const fd = new FormData();
-      selected.forEach(function(item) {
-        fd.append(item.key, item.file, item.file.name);
-      });
+      setAiProgress('Mengompres gambar agar tidak menyebabkan error 502 di Cloudflare. Mohon tunggu.', 'info');
+      for (const item of selected) {
+        const compressed = await compressImageForAi(item.file, item.label);
+        fd.append(item.key, compressed, compressed.name);
+      }
       fd.append('tahun_ajaran', '2026/2027');
       fd.append('sekolah', 'SD Negeri 3 Pringgabaya');
+      setAiProgress('Mengirim dokumen yang sudah dikompres ke Gemini melalui Cloudflare Worker.', 'info');
 
       const response = await fetch(AI_EXTRACT_URL, { method: 'POST', body: fd });
       const rawText = await response.text();
