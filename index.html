@@ -500,12 +500,17 @@
       fd.append('sekolah', 'SD Negeri 3 Pringgabaya');
 
       const response = await fetch(AI_EXTRACT_URL, { method: 'POST', body: fd });
-      const result = await response.json().catch(function() {
-        throw new Error('Endpoint AI tidak mengembalikan JSON valid.');
-      });
+      const rawText = await response.text();
+      let result = null;
+      try {
+        result = JSON.parse(rawText);
+      } catch (parseError) {
+        const preview = rawText ? rawText.slice(0, 300).replace(/\s+/g, ' ') : '(kosong)';
+        throw new Error('Endpoint AI tidak mengembalikan JSON valid. Status HTTP: ' + response.status + '. Cuplikan respons: ' + preview);
+      }
 
       if (!response.ok || !result.ok) {
-        throw new Error(result.error || 'Analisis AI gagal.');
+        throw new Error(result.error || ('Analisis AI gagal. Status HTTP: ' + response.status));
       }
 
       document.getElementById('aiJsonText').value = JSON.stringify(result.data || {}, null, 2);

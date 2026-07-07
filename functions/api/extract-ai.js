@@ -56,7 +56,18 @@ function normalizeExtractedData(data) {
 }
 
 export async function onRequestOptions() {
-  return jsonResponse({ ok: true });
+  return jsonResponse({ ok: true, endpoint: 'extract-ai', method: 'OPTIONS' });
+}
+
+export async function onRequestGet(context) {
+  const hasKey = Boolean(context.env && context.env.GEMINI_API_KEY);
+  return jsonResponse({
+    ok: true,
+    endpoint: 'extract-ai',
+    message: 'Endpoint AI aktif. Gunakan metode POST dari form untuk analisis dokumen.',
+    gemini_key_configured: hasKey,
+    model: (context.env && context.env.GEMINI_MODEL) || DEFAULT_MODEL
+  });
 }
 
 export async function onRequestPost(context) {
@@ -162,11 +173,14 @@ Schema JSON wajib:
     }
 
     const model = env.GEMINI_MODEL || DEFAULT_MODEL;
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(env.GEMINI_API_KEY)}`;
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
 
     const geminiResponse = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': env.GEMINI_API_KEY
+      },
       body: JSON.stringify({
         contents: [{ role: 'user', parts }],
         generationConfig: {
@@ -184,10 +198,19 @@ Schema JSON wajib:
       })
     });
 
-    const geminiJson = await geminiResponse.json().catch(() => null);
+    const geminiText = await geminiResponse.text();
+    let geminiJson = null;
+    try {
+      geminiJson = JSON.parse(geminiText);
+    } catch (_) {
+      geminiJson = null;
+    }
     if (!geminiResponse.ok) {
-      const message = geminiJson?.error?.message || `Gemini API error HTTP ${geminiResponse.status}`;
-      return jsonResponse({ ok: false, error: message }, 502);
+      const message = geminiJson?.error?.message || geminiText.slice(0, 500) || `Gemini API error HTTP ${geminiResponse.status}`;
+      return jsonResponse({ ok: false, error: message, http_status: geminiResponse.status }, 502);
+    }
+    if (!geminiJson) {
+      return jsonResponse({ ok: false, error: 'Gemini API tidak mengembalikan JSON valid.', raw: geminiText.slice(0, 500) }, 502);
     }
 
     const text = geminiJson?.candidates?.[0]?.content?.parts?.map((part) => part.text || '').join('\n').trim();
