@@ -1,772 +1,428 @@
-"<!DOCTYPE html>
-
+<!DOCTYPE html>
 <html>
-
 <head>
-
   <base target="_top">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Pendaftaran SPMB 2026/2027 - SD Negeri 3 Pringgabaya</title> 
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
   
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
   
-
   <style>
-
     body { font-family: 'Inter', sans-serif; background: #9b9b9c; color: #333; padding-top: 20px; }
-
     .main-card { background: #fff; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: none; overflow: hidden; margin-bottom: 50px; }
-
     .header-gradient { background: linear-gradient(135deg, #0d6efd 0%, #0a46a1 100%); color: white; padding: 30px 20px; text-align: center; }
-
     .header-logo { width: 80px; height: 80px; object-fit: contain; background-color: #ffffff; border-radius: 50%; padding: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-
     .section-header { background: #f8f9fa; padding: 10px 20px; border-radius: 8px; margin: 30px 0 20px 0; font-weight: 700; color: #0d6efd; border-left: 5px solid #0d6efd; }
-
     .form-label { font-weight: 500; font-size: 0.9rem; color: #555; }
-
     .form-control, .form-select { border-radius: 10px; padding: 10px 15px; border: 1px solid #dee2e6; }
-
     .btn-submit { background: #0d6efd; border: none; padding: 15px; border-radius: 12px; font-weight: 600; width: 100%; transition: 0.3s; margin-top: 10px; color: white; }
-
     .btn-submit:hover { background: #0a46a1; transform: translateY(-2px); }
-
     .hidden-section { display: none; }
-
     .sub-label { font-weight: 700; color: #666; font-size: 0.8rem; margin-top: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-
     .success-box { border: 2px dashed #198754; background-color: #f8fffb; border-radius: 10px; padding: 20px; }
-
     .upload-note { font-size: 0.75rem; color: #dc3545; }
-
     .flatpickr-input[readonly] { background-color: #fff; }
 
-
-
     .pakta-box { background-color: #fff9e6; border-left: 5px solid #ffc107; border-radius: 10px; padding: 15px; margin-top: 30px; margin-bottom: 20px; }
-
     .pakta-text { font-size: 0.9rem; color: #444; line-height: 1.5; text-align: justify; margin-bottom: 0; }
-
     
-
     .accordion-button:not(.collapsed) { background-color: #e9ecef; color: #0d6efd; font-weight: bold; box-shadow: inset 0 -1px 0 rgba(0,0,0,.125); }
-
     .accordion-button { font-weight: 600; color: #444; }
-
   </style>
-
 </head>
-
 <body>
 
-
+<audio id="bgMusic" loop autoplay style="display: none;">
+  <source src="https://files.catbox.moe/cdqmhb.mp3" type="audio/mpeg">
+</audio>
 
 <div class="container">
-
   <div class="row justify-content-center">
-
     <div class="col-lg-10">
-
       <div class="card main-card">
-
         
-
         <div class="header-gradient d-flex flex-column flex-md-row align-items-center justify-content-center gap-3">
-
           <img src="logo-kiri.png" alt="Logo Dinas" class="header-logo" onerror="this.style.display='none'"> 
-
           <div class="text-center mx-md-3">
-
             <h2 class="fw-bold mb-1">SPMB 2026/ 2027</h2>
-
             <p class="mb-0 opacity-75">SD NEGERI 3 PRINGGABAYA</p>
-
           </div>
-
           <img src="logo-kanan.png" alt="Logo Sekolah" class="header-logo" onerror="this.style.display='none'">
-
         </div>
-
         
-
         <div class="card-body p-4 p-md-5">
-
           
-
           <div class="mb-5">
-
             <div class="p-3 mb-4 rounded" style="background-color: #f8f9fa; border-left: 4px solid #0d6efd;">
-
               <p class="mb-2">Bismillahirrahmanirrahim,</p>
-
               <p class="mb-0">Tahun Akademik 2026/2027, <strong>SD Negeri 3 Pringgabaya</strong> telah membuka penerimaan peserta didik baru.</p>
-
             </div>
-
-
 
             <div class="accordion shadow-sm border-0" id="accordionPPDB">
-
               <div class="accordion-item border-0 border-bottom">
-
                 <h2 class="accordion-header">
-
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSatu">
-
                     Pendaftaran Online
-
                   </button>
-
                 </h2>
-
                 <div id="collapseSatu" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
-
                   <div class="accordion-body text-muted small">
-
-                    Pendaftaran dilakukan secara online dengan mengisi formulir di bawah ini dengan data yang valid dan sebenar-benarnya. Pastikan semua berkas persyaratan (Foto, KK, KTP Wali, dan Akta Kelahiran) telah disiapkan.
-
+                    Pendaftaran dilakukan secara online dengan mengisi formulir di bawah ini dengan data yang valid dan sebenar-benarnya. Upload berkas persyaratan bersifat opsional, namun disarankan jika sudah tersedia.
                   </div>
-
                 </div>
-
               </div>
-
               
-
               <div class="accordion-item border-0 border-bottom">
-
                 <h2 class="accordion-header">
-
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDua">
-
                     Pendaftaran Ulang
-
                   </button>
-
                 </h2>
-
                 <div id="collapseDua" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
-
                   <div class="accordion-body text-muted small">
-
                     Jadwal dan persyaratan pendaftaran ulang akan diinformasikan lebih lanjut setelah proses verifikasi data online selesai. Informasi akan dibagikan melalui Grup WhatsApp resmi.
-
                   </div>
-
                 </div>
-
               </div>
-
               
-
               <div class="accordion-item border-0 border-bottom">
-
                 <h2 class="accordion-header">
-
                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTiga">
-
                     Rincian Biaya Masuk
-
                   </button>
-
                 </h2>
-
                 <div id="collapseTiga" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
-
                   <div class="accordion-body text-muted small">
-
                     Biaya masuk <strong>hanya</strong> diperuntukkan untuk pembuatan seragam siswa, yaitu:
-
                     <ul class="mt-2 mb-2">
-
                       <li>1 Stel Pakaian Olah Raga</li>
-
                       <li>1 Stel Pakaian Batik</li>
-
                     </ul>
-
                     <em>*Nominal rincian biaya akan diinformasikan kemudian.</em>
-
                   </div>
-
                 </div>
-
               </div>
-
               
-
-              <div class="accordion-item border-0">
-
+              <div class="accordion-item border-0 border-bottom">
                 <h2 class="accordion-header">
-
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmpat">
-
-                    Grup Whatsapp PPDB
-
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDua">
+                    Pendaftaran Ulang
                   </button>
-
                 </h2>
-
-                <div id="collapseEmpat" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
-
-                  <div class="accordion-body" style="background-color: #f8f9fa;">
-
-                    <p class="small text-muted mb-3" style="text-align: justify;">
-
-                      Grup WhatsApp PPDB SD Negeri 3 Pringgabaya dibuat untuk memudahkan calon peserta didik dalam mendapatkan informasi resmi seputar proses pendaftaran. Pastikan Anda sudah membaca dan memahami ketentuan dalam grup sebelum bergabung. Klik tombol di bawah untuk masuk ke grup dan tetap terhubung dengan informasi terbaru.
-
-                    </p>
-
-                    <a href="#" target="_blank" class="btn text-white" style="background-color: #3b5998; border-radius: 8px;">
-
-                      <i class="bi bi-person-add me-2"></i>Gabung Grup
-
-                    </a>
-
+                <div id="collapseDua" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
+                  <div class="accordion-body text-muted small">
+                    Jadwal dan persyaratan pendaftaran ulang akan diinformasikan lebih lanjut setelah proses verifikasi data online selesai. Informasi akan dibagikan melalui Grup WhatsApp resmi.
                   </div>
-
                 </div>
-
               </div>
-
-            </div>
-
-          </div>
-
-          
-
-          <form id="spmbForm">
-
-            <div class="section-header text-uppercase">A. Identitas Calon Peserta Didik</div>
-
-            <div class="row g-3">
-
-              <div class="col-md-12"><label class="form-label">Nama Lengkap (Sesuai Akta)*</label><input type="text" name="nama" class="form-control" required></div>
-
-              <div class="col-md-6"><label class="form-label">Jenis Kelamin*</label><select name="jk" class="form-select" required><option value="">Pilih...</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
-
-              <div class="col-md-6"><label class="form-label">Agama*</label><select name="agama" class="form-select" required><option value="">Pilih...</option><option value="Islam">Islam</option><option value="Kristen">Kristen</option><option value="Katholik">Katholik</option><option value="Hindu">Hindu</option><option value="Budha">Budha</option><option value="Lainnya">Lainnya</option></select></div>
-
-              <div class="col-md-6"><label class="form-label">Nomor KK (16 Digit)*</label><input type="number" name="no_kk" class="form-control" required></div>
-
-              <div class="col-md-6"><label class="form-label">NIK (16 Digit)*</label><input type="number" name="nik" class="form-control" required></div>
-
-              <div class="col-md-6"><label class="form-label">Tempat Lahir*</label><input type="text" name="tempat_lahir" class="form-control" required></div>
-
               
-
-              <div class="col-md-6">
-
-                <label class="form-label">Tanggal Lahir*</label>
-
-                <input type="text" name="tgl_lahir" id="tgl_lahir" class="form-control" placeholder="Hari/Bulan/Tahun" required>
-
+              <div class="accordion-item border-0 border-bottom">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTiga">
+                    Rincian Biaya Masuk
+                  </button>
+                </h2>
+                <div id="collapseTiga" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
+                  <div class="accordion-body text-muted small">
+                    Biaya masuk <strong>hanya</strong> diperuntukkan untuk pembuatan seragam siswa, yaitu:
+                    <ul class="mt-2 mb-2">
+                      <li>1 Stel Pakaian Olah Raga</li>
+                      <li>1 Stel Pakaian Batik</li>
+                    </ul>
+                    <em>*Nominal rincian biaya akan diinformasikan kemudian.</em>
+                  </div>
+                </div>
               </div>
-
-
+              
+              <div class="accordion-item border-0">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmpat">
+                    Grup Whatsapp PPDB
+                  </button>
+                </h2>
+                <div id="collapseEmpat" class="accordion-collapse collapse" data-bs-parent="#accordionPPDB">
+                  <div class="accordion-body" style="background-color: #f8f9fa;">
+                    <p class="small text-muted mb-3" style="text-align: justify;">
+                      Grup WhatsApp PPDB SD Negeri 3 Pringgabaya dibuat untuk memudahkan calon peserta didik dalam mendapatkan informasi resmi seputar proses pendaftaran. Pastikan Anda sudah membaca dan memahami ketentuan dalam grup sebelum bergabung. Klik tombol di bawah untuk masuk ke grup dan tetap terhubung dengan informasi terbaru.
+                    </p>
+                    <a href="https://chat.whatsapp.com/FeMyerOhvAMJRGwXJ34Qup" target="_blank" class="btn text-white" style="background-color: #11ed53; border-radius: 8px;">
+                      <i class="bi bi-person-add me-2"></i>Gabung Grup
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <form id="spmbForm">
+            <div class="section-header text-uppercase">A. Identitas Calon Peserta Didik</div>
+            <div class="row g-3">
+              <div class="col-md-12"><label class="form-label">Nama Lengkap (Sesuai Akta)*</label><input type="text" name="nama" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label">Jenis Kelamin*</label><select name="jk" class="form-select" required><option value="">Pilih...</option><option value="Laki-laki">Laki-laki</option><option value="Perempuan">Perempuan</option></select></div>
+              <div class="col-md-6"><label class="form-label">Agama*</label><select name="agama" class="form-select" required><option value="">Pilih...</option><option value="Islam">Islam</option><option value="Kristen">Kristen</option><option value="Katholik">Katholik</option><option value="Hindu">Hindu</option><option value="Budha">Budha</option><option value="Lainnya">Lainnya</option></select></div>
+              <div class="col-md-6"><label class="form-label">Nomor KK (16 Digit)*</label><input type="number" name="no_kk" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label">NIK (16 Digit)*</label><input type="number" name="nik" class="form-control" required></div>
+              <div class="col-md-6"><label class="form-label">Tempat Lahir*</label><input type="text" name="tempat_lahir" class="form-control" required></div>
+              
+              <div class="col-md-6">
+                <label class="form-label">Tanggal Lahir*</label>
+                <input type="text" name="tgl_lahir" id="tgl_lahir" class="form-control" placeholder="Hari/Bulan/Tahun" required>
+              </div>
 
               <div class="col-md-12"><label class="form-label">Alamat Lengkap Rumah*</label><textarea name="alamat" class="form-control" rows="2" required></textarea></div>
-
               <div class="col-md-6"><label class="form-label">No. Telp / HP (WhatsApp)*</label><input type="tel" name="no_hp" class="form-control" required></div>
-
               <div class="col-md-6"><label class="form-label">Penerima KPS/KIP/PIP?*</label><select name="penerima_kip" class="form-select" required><option value="">Pilih...</option><option value="Tidak">Tidak</option><option value="Ya">Ya</option></select></div>
-
             </div>
-
-
 
             <div class="section-header text-uppercase">B. Data Orang Tua / Wali</div>
-
             <div class="row g-3 mb-4">
-
               <div class="col-md-12">
-
                 <label class="form-label text-primary fw-bold">Status Tinggal Bersama*</label>
-
                 <select name="tinggal_bersama" id="tinggal_bersama" class="form-select" style="background-color: #f0f7ff;" required>
-
                   <option value="">-- Pilih Status --</option>
-
                   <option value="Bersama Orang Tua">Bersama Orang Tua</option>
-
                   <option value="Bersama Wali">Bersama Wali</option>
-
                 </select>
-
               </div>
-
             </div>
-
-
 
             <div id="section_ortu" class="hidden-section">
-
               <div class="sub-label text-uppercase">Identitas Ayah</div>
-
               <div class="row g-3">
-
                 <div class="col-md-6"><label class="form-label">Nama Ayah</label><input type="text" name="nama_ayah" class="form-control"></div>
-
                 <div class="col-md-3"><label class="form-label">Tahun Lahir</label><input type="number" name="tahun_ayah" class="form-control"></div>
-
                 <div class="col-md-3"><label class="form-label">Pendidikan</label><select name="pdk_ayah" class="form-select"><option value="">Pilih...</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="S1/S2/S3">S1/S2/S3</option><option value="Tidak Tamat SD">Tidak Tamat SD</option><option value="Tidak Bersekolah">Tidak Bersekolah</option></select></div>
-
                 <div class="col-md-6"><label class="form-label">Pekerjaan Ayah</label><input type="text" name="kerja_ayah" class="form-control"></div>
-
                 <div class="col-md-6"><label class="form-label">Penghasilan Ayah</label><input type="text" name="hasil_ayah" class="form-control"></div>
-
               </div>
-
               <div class="sub-label text-uppercase mt-4">Identitas Ibu</div>
-
               <div class="row g-3">
-
                 <div class="col-md-6"><label class="form-label">Nama Ibu*</label><input type="text" name="nama_ibu" id="nama_ibu" class="form-control"></div>
-
                 <div class="col-md-3"><label class="form-label">Tahun Lahir</label><input type="number" name="tahun_ibu" class="form-control"></div>
-
                 <div class="col-md-3"><label class="form-label">Pendidikan</label><select name="pdk_ibu" class="form-select"><option value="">Pilih...</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="S1/S2/S3">S1/S2/S3</option><option value="Tidak Tamat SD">Tidak Tamat SD</option><option value="Tidak Bersekolah">Tidak Bersekolah</option></select></div>
-
                 <div class="col-md-6"><label class="form-label">Pekerjaan Ibu</label><input type="text" name="kerja_ibu" class="form-control"></div>
-
                 <div class="col-md-6"><label class="form-label">Penghasilan Ibu</label><input type="text" name="hasil_ibu" class="form-control"></div>
-
               </div>
-
             </div>
-
-
 
             <div id="section_wali" class="hidden-section">
-
               <div class="sub-label text-uppercase">Identitas Wali</div>
-
               <div class="row g-3">
-
                 <div class="col-md-6"><label class="form-label">Nama Wali</label><input type="text" name="nama_wali" class="form-control"></div>
-
                 <div class="col-md-3"><label class="form-label">Tahun Lahir</label><input type="number" name="tahun_wali" class="form-control"></div>
-
                 <div class="col-md-3"><label class="form-label">Pendidikan</label><select name="pdk_wali" class="form-select"><option value="">Pilih...</option><option value="SD">SD</option><option value="SMP">SMP</option><option value="SMA">SMA</option><option value="S1/S2/S3">S1/S2/S3</option><option value="Tidak Tamat SD">Tidak Tamat SD</option><option value="Tidak Bersekolah">Tidak Bersekolah</option></select></div>
-
                 <div class="col-md-6"><label class="form-label">Pekerjaan Wali</label><input type="text" name="kerja_wali" class="form-control"></div>
-
                 <div class="col-md-6"><label class="form-label">Penghasilan Wali</label><input type="text" name="hasil_wali" class="form-control"></div>
-
               </div>
-
               <div class="sub-label text-uppercase mt-4">Data Orang Tua Kandung (Wajib Isi)</div>
-
               <div class="row g-3">
-
                 <div class="col-md-8"><label class="form-label">Nama Ibu Kandung*</label><input type="text" name="ibu_kandung_wali" id="ibu_kandung_wali" class="form-control" placeholder="Nama lengkap ibu kandung"></div>
-
                 <div class="col-md-4"><label class="form-label">Tahun Lahir Ibu</label><input type="number" name="tahun_ibu_wali" class="form-control"></div>
-
               </div>
-
             </div>
-
-
 
             <div class="section-header text-uppercase">C. Data Periodik</div>
-
             <div class="row g-3">
-
               <div class="col-md-3"><label class="form-label">TB (cm)</label><input type="number" name="tinggi" class="form-control"></div>
-
               <div class="col-md-3"><label class="form-label">BB (kg)</label><input type="number" name="berat" class="form-control"></div>
-
               <div class="col-md-3"><label class="form-label">Anak Ke-</label><input type="number" name="anak_ke" class="form-control"></div>
-
               <div class="col-md-3"><label class="form-label">Jumlah Saudara</label><input type="number" name="saudara" class="form-control"></div>
-
               <div class="col-md-12"><label class="form-label">Asal Sekolah (TK/PAUD)</label><input type="text" name="asal_sekolah" class="form-control"></div>
-
             </div>
 
-
-
-            <div class="section-header text-uppercase">D. Upload Berkas (Wajib)</div>
-
+            <div class="section-header text-uppercase">D. Upload Berkas (Opsional)</div>
             <div class="row g-3 mb-2">
-
               <div class="col-md-6">
-
-                <label class="form-label">Pas Foto Calon Siswa 3x4*</label>
-
-                <input type="file" id="fileFoto" class="form-control" accept="image/jpeg, image/png" required>
-
-                <div class="upload-note mt-1">Format: JPG/PNG. Maksimal 2MB.</div>
-
+                <label class="form-label">Pas Foto Calon Siswa 3x4</label>
+                <input type="file" id="fileFoto" class="form-control" accept="image/jpeg, image/png">
+                <div class="upload-note mt-1 text-muted">Format: JPG/PNG. Maksimal 2MB.</div>
               </div>
-
               <div class="col-md-6">
-
-                <label class="form-label">Scan Kartu Keluarga (KK)*</label>
-
-                <input type="file" id="fileKk" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
-
-                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
-
+                <label class="form-label">Scan Kartu Keluarga (KK)</label>
+                <input type="file" id="fileKk" class="form-control" accept="image/jpeg, image/png, application/pdf">
+                <div class="upload-note mt-1 text-muted">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
               </div>
-
               <div class="col-md-6">
-
-                <label class="form-label">Scan KTP Orang Tua/Wali*</label>
-
-                <input type="file" id="fileKtp" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
-
-                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
-
+                <label class="form-label">Scan KTP Orang Tua/Wali</label>
+                <input type="file" id="fileKtp" class="form-control" accept="image/jpeg, image/png, application/pdf">
+                <div class="upload-note mt-1 text-muted">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
               </div>
-
               <div class="col-md-6">
-
-                <label class="form-label">Scan Akta Kelahiran Siswa*</label>
-
-                <input type="file" id="fileAkta" class="form-control" accept="image/jpeg, image/png, application/pdf" required>
-
-                <div class="upload-note mt-1">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
-
+                <label class="form-label">Scan Akta Kelahiran Siswa</label>
+                <input type="file" id="fileAkta" class="form-control" accept="image/jpeg, image/png, application/pdf">
+                <div class="upload-note mt-1 text-muted">Format: JPG/PNG/PDF. Maksimal 2MB.</div>
               </div>
-
             </div>
-
-
 
             <div class="pakta-box shadow-sm">
-
               <div class="form-check d-flex align-items-start m-0 p-0">
-
                 <input class="form-check-input mt-1 me-3" type="checkbox" id="paktaCheck" required style="width: 30px; height: 30px; flex-shrink: 0; cursor: pointer; border: 2px solid #0d6efd; margin-left: 0;">
-
                 <label class="form-check-label pakta-text" for="paktaCheck" style="cursor: pointer; padding-top: 4px;">
-
                   Saya telah membaca, memahami, dan menyetujui seluruh <a href="https://www.sdn3pringgabaya.sch.id/p/pakta-integritas-perjanjian-orang.html" target="_blank" class="fw-bold text-primary text-decoration-none">peraturan serta pakta integritas</a> di atas. Saya bertanggung jawab penuh atas komitmen ini selama putra/putri saya menempuh pendidikan di SD Negeri 3 Pringgabaya.
-
                 </label>
-
               </div>
-
             </div>
-
-
 
             <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">Kirim Pendaftaran</button>
-
             
-
             <div id="loader" class="text-center mt-3 d-none">
-
               <div class="spinner-border text-primary" role="status"></div>
-
-              <p class="mt-2 fw-bold text-primary">Sedang mengupload 4 berkas dan menyimpan data... Mohon tunggu (Jangan tutup halaman).</p>
-
+              <p class="mt-2 fw-bold text-primary">Sedang menyimpan data... Mohon tunggu (Jangan tutup halaman).</p>
             </div>
-
             
-
             <div id="success-actions" class="mt-4 d-none text-center">
-
               <div class="success-box mb-3">
-
                 <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
-
                 <h5 class="fw-bold text-success mt-2">Pendaftaran Berhasil!</h5>
-
-                <p class="small mb-0">Data siswa dan berkas telah tersimpan di sistem.</p>
-
+                <p class="small mb-0">Data siswa telah tersimpan di sistem.</p>
               </div>
-
               <button type="button" class="btn btn-outline-primary w-100 py-3 fw-bold" id="btnReload">Isi Formulir Baru</button>
-
             </div>
-
-
 
           </form>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
 
-
-
 <script>
+  // TRICK UNTUK BYPASS BROWSER AUTOPLAY POLICY
+  document.body.addEventListener('click', function() {
+    var bgMusic = document.getElementById('bgMusic');
+    if (bgMusic.paused) {
+      bgMusic.play();
+    }
+  }, { once: true }); // Listener hanya jalan sekali
 
   flatpickr("#tgl_lahir", {
-
     altInput: true,          
-
     altFormat: "d/m/Y",      
-
     dateFormat: "Y-m-d",     
-
     locale: "id",            
-
     allowInput: true         
-
   });
 
-
-
-  // GANTI DENGAN URL WEB APP DEPLOYMENT BARU ANTUM !!
-
+  // URL DEPLOYMENT GOOGLE SCRIPT
   const scriptURL = 'https://script.google.com/macros/s/AKfycbwebKZ_O4J7_VA0bd34x15274m9hxCzAKldm_Apx6GIsVQ9evC4fiWHaZOp1gXG_0BdhA/exec';
 
-
-
   const selectTinggal = document.getElementById('tinggal_bersama');
-
   const sectionOrtu = document.getElementById('section_ortu');
-
   const sectionWali = document.getElementById('section_wali');
-
   const inputNamaIbu = document.getElementById('nama_ibu');         
-
   const inputIbuKandung = document.getElementById('ibu_kandung_wali'); 
 
-
-
   selectTinggal.addEventListener('change', function() {
-
     if (this.value === 'Bersama Orang Tua') {
-
       sectionOrtu.style.display = 'block'; sectionWali.style.display = 'none';
-
       inputNamaIbu.required = true; inputIbuKandung.required = false;   
-
     } else if (this.value === 'Bersama Wali') {
-
       sectionOrtu.style.display = 'none'; sectionWali.style.display = 'block';
-
       inputNamaIbu.required = false; inputIbuKandung.required = true;    
-
     } else {
-
       sectionOrtu.style.display = 'none'; sectionWali.style.display = 'none';
-
       inputNamaIbu.required = false; inputIbuKandung.required = false;
-
     }
-
   });
-
-
 
   function getBase64(file) {
-
+    if (!file) return Promise.resolve(null); // REVISI: Kalau tidak ada file, lewati (jangan error)
     return new Promise((resolve, reject) => {
-
       const reader = new FileReader();
-
       reader.readAsDataURL(file);
-
       reader.onload = () => resolve({
-
         base64: reader.result.split(',')[1],
-
         mimeType: file.type
-
       });
-
       reader.onerror = error => reject(error);
-
     });
-
   }
 
-
-
   const form = document.getElementById('spmbForm');
-
   form.addEventListener('submit', async e => {
-
     e.preventDefault();
 
-
-
     if (!form.checkValidity()) {
-
       e.stopPropagation();
-
       form.reportValidity(); 
-
       return; 
-
     }
-
-
 
     const fileFoto = document.getElementById('fileFoto').files[0];
-
     const fileKk = document.getElementById('fileKk').files[0];
-
-    const fileKtp = document.getElementById('fileKtp').files[0];   // Ambil File KTP
-
-    const fileAkta = document.getElementById('fileAkta').files[0]; // Ambil File Akta
-
-
-
-    // Validasi Limit Size untuk ke-4 File
+    const fileKtp = document.getElementById('fileKtp').files[0];   
+    const fileAkta = document.getElementById('fileAkta').files[0]; 
 
     const maxSize = 2 * 1024 * 1024;
-
-    if (fileFoto.size > maxSize || fileKk.size > maxSize || fileKtp.size > maxSize || fileAkta.size > maxSize) {
-
+    // REVISI: Cek ukuran hanya jika file-nya dipilih/ada
+    if ( (fileFoto && fileFoto.size > maxSize) || 
+         (fileKk && fileKk.size > maxSize) || 
+         (fileKtp && fileKtp.size > maxSize) || 
+         (fileAkta && fileAkta.size > maxSize) ) {
       alert("Ada ukuran file yang terlalu besar! Pastikan masing-masing file maksimal 2MB.");
-
       return;
-
     }
-
-
 
     document.getElementById('submitBtn').classList.add('d-none');
-
     document.getElementById('loader').classList.remove('d-none');
 
-
-
     try {
-
+      // PROSES KONVERSI (Bisa bernilai null kalau kosong, tapi nggak error)
       const fotoData = await getBase64(fileFoto);
-
       const kkData = await getBase64(fileKk);
-
-      const ktpData = await getBase64(fileKtp);   // Konversi KTP
-
-      const aktaData = await getBase64(fileAkta); // Konversi Akta
-
-
+      const ktpData = await getBase64(fileKtp);   
+      const aktaData = await getBase64(fileAkta); 
 
       const formData = new FormData(form);
-
       let payload = Object.fromEntries(formData.entries());
 
-
-
-      payload.fotoBase64 = fotoData.base64;
-
-      payload.fotoMimeType = fotoData.mimeType;
-
-      
-
-      payload.kkBase64 = kkData.base64;
-
-      payload.kkMimeType = kkData.mimeType;
-
-      
-
-      payload.ktpBase64 = ktpData.base64;
-
-      payload.ktpMimeType = ktpData.mimeType;
-
-      
-
-      payload.aktaBase64 = aktaData.base64;
-
-      payload.aktaMimeType = aktaData.mimeType;
-
-
+      // MASUKKAN KE PAYLOAD HANYA JIKA DATANYA ADA
+      if(fotoData) { payload.fotoBase64 = fotoData.base64; payload.fotoMimeType = fotoData.mimeType; }
+      if(kkData) { payload.kkBase64 = kkData.base64; payload.kkMimeType = kkData.mimeType; }
+      if(ktpData) { payload.ktpBase64 = ktpData.base64; payload.ktpMimeType = ktpData.mimeType; }
+      if(aktaData) { payload.aktaBase64 = aktaData.base64; payload.aktaMimeType = aktaData.mimeType; }
 
       fetch(scriptURL, { 
-
         method: 'POST', 
-
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-
         body: JSON.stringify(payload)
-
       })
-
       .then(response => response.json())
-
       .then(data => {
-
         if(data.result === "success") {
-
           document.getElementById('loader').classList.add('d-none');
-
           document.getElementById('success-actions').classList.remove('d-none');
-
           window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-
         } else {
-
           throw new Error(data.error);
-
         }
-
       })
-
       .catch(error => {
-
         console.error('Error!', error);
-
-        alert("Terjadi kesalahan teknis saat mengupload. Coba lagi.");
-
+        alert("Terjadi kesalahan teknis saat menyimpan data. Coba lagi.");
         document.getElementById('submitBtn').classList.remove('d-none');
-
         document.getElementById('loader').classList.add('d-none');
-
       });
 
-
-
     } catch (error) {
-
       console.error('File Error!', error);
-
       alert("Gagal memproses file. Pastikan file tidak rusak.");
-
       document.getElementById('submitBtn').classList.remove('d-none');
-
       document.getElementById('loader').classList.add('d-none');
-
     }
-
   });
-
-
 
   document.getElementById('btnReload').addEventListener('click', function() {
-
     location.reload(); 
-
   });
-
 </script>
-
 </body>
-
-</html>" 
-
+</html>
